@@ -2,7 +2,7 @@ import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useRouter, usePathname } from "expo-router";
 import { Colors } from "../theme/colors";
-import { Play, Plus, List } from "lucide-react-native";
+import { Play, Plus, List } from "lucide-react-native"; //https://lucide.dev/guide/packages/lucide-react-native
 
 type Tab = { key: string; label: string; href: string };
 
@@ -30,9 +30,9 @@ export function BottomBar() {
                             onPress={() => router.push(t.href)}
                             style={({ pressed }) => [styles.item, pressed && styles.pressed, active && styles.activeItem]}
                         >
-                            {t.key === "play" && <Play />}
-                            {t.key === "add" && <Plus />}
-                            {t.key === "list" && <List />}
+                            {t.key === "play" && <Play style={[styles.icon]} strokeWidth={active ? 4 : 2} />}
+                            {t.key === "add" && <Plus style={[styles.icon]} strokeWidth={active ? 4 : 2} />}
+                            {t.key === "list" && <List style={[styles.icon]} strokeWidth={active ? 4 : 2} />}
                             <Text style={[styles.label, active && styles.activeLabel]}>{active && t.label}</Text>
 
                         </Pressable>
@@ -63,7 +63,7 @@ function isActive(pathname: string | null, href: string) {
 const styles = StyleSheet.create({
     wrap: {
         paddingHorizontal: 18,
-        paddingBottom: 14,
+        paddingBottom: 20,
         paddingTop: 10,
     },
     bar: {
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         backgroundColor: "rgba(0,0,0,0.22)",
         borderColor: "rgba(255,255,255,0.10)",
         borderWidth: 1,
-        borderRadius: 18,
+        borderRadius: 8,
         overflow: "hidden",
     },
     item: { flex: 1, paddingVertical: 14, alignItems: "center" },
@@ -79,4 +79,5 @@ const styles = StyleSheet.create({
     activeItem: { backgroundColor: "rgba(255, 255, 255, 0.05)" },
     label: { color: Colors.muted, fontSize: 13, fontWeight: "700" },
     activeLabel: { color: Colors.text },
+    icon: { color: Colors.muted, },
 });

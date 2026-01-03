@@ -22,7 +22,6 @@ export function BottomBar() {
             <View style={styles.bar}>
                 {TABS.map((t) => {
                     const active = isActive(pathname, t.href);
-                    console.log("pathname=", pathname, "href=", t.href, "active=", active);
 
                     return (
 
@@ -31,10 +30,10 @@ export function BottomBar() {
                             onPress={() => router.push(t.href)}
                             style={({ pressed }) => [styles.item, pressed && styles.pressed, active && styles.activeItem]}
                         >
-                            {active && t.key === "play" && <Play />}
-                            {active && t.key === "add" && <Plus />}
-                            {active && t.key === "list" && <List />}
-                            <Text style={[styles.label, active && styles.activeLabel]}>{t.label}</Text>
+                            {t.key === "play" && <Play />}
+                            {t.key === "add" && <Plus />}
+                            {t.key === "list" && <List />}
+                            <Text style={[styles.label, active && styles.activeLabel]}>{active && t.label}</Text>
 
                         </Pressable>
 

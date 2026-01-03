@@ -11,9 +11,9 @@ export default function TabsLayout() {
         tabBarStyle: { display: "none" },
       }}
     >
-      <Tabs.Screen name="index" />
+      <Tabs.Screen name="play" />
       <Tabs.Screen name="add" />
-      <Tabs.Screen name="search" />
+      <Tabs.Screen name="list" />
     </Tabs>
   );
 }

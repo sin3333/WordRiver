@@ -6,9 +6,9 @@ import { Colors } from "../theme/colors";
 type Tab = { key: string; label: string; href: string };
 
 const TABS: Tab[] = [
-    { key: "list", label: "一覧", href: "/(tabs)" },        // index
+    { key: "play", label: "眺める", href: "/(tabs)/play" },        // main
     { key: "add", label: "追加", href: "/(tabs)/add" },
-    { key: "search", label: "検索", href: "/(tabs)/search" },
+    { key: "list", label: "一覧", href: "/(tabs)/list" },
 ];
 
 export function BottomBar() {
@@ -36,7 +36,9 @@ export function BottomBar() {
 }
 
 function isActive(pathname: string, href: string) {
-    if (href === "/(tabs)") return pathname === "/(tabs)" || pathname === "/";
+    // treat root and /(tabs) as the same default for the main/list screen
+    if (href === "/(tabs)/play") return pathname === "/(tabs)/main" || pathname === "/(tabs)" || pathname === "/";
+    if (href === "/(tabs)/list") return pathname === "/(tabs)/list" || pathname === "/(tabs)" || pathname === "/";
     return pathname === href;
 }
 

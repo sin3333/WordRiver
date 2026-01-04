@@ -30,9 +30,8 @@ export function BottomBar() {
                             onPress={() => router.push(t.href)}
                             style={({ pressed }) => [styles.item, pressed && styles.pressed, active && styles.activeItem]}
                         >
-                            {t.key === "play" && <Play style={[styles.icon]} strokeWidth={active ? 4 : 2} />}
-                            {t.key === "add" && <Plus style={[styles.icon]} strokeWidth={active ? 4 : 2} />}
-                            {t.key === "list" && <List style={[styles.icon]} strokeWidth={active ? 4 : 2} />}
+                            {renderIcon(t.key, active)}
+
                             <Text style={[styles.label, active && styles.activeLabel]}>{active && t.label}</Text>
 
                         </Pressable>
@@ -43,6 +42,18 @@ export function BottomBar() {
             </View>
         </View>
     );
+}
+
+function renderIcon(key: string, active: boolean): JSX.Element {
+
+    return (
+        <View>
+            {key === "play" && <Play style={[styles.icon]} strokeWidth={active ? 4 : 2} />}
+            {key === "add" && <Plus style={[styles.icon]} strokeWidth={active ? 4 : 2} />}
+            {key === "list" && <List style={[styles.icon]} strokeWidth={active ? 4 : 2} />}
+        </View>
+    )
+
 }
 
 function isActive(pathname: string | null, href: string) {

@@ -32,7 +32,7 @@ export function BottomBar() {
                         >
                             {renderIcon(t.key, active)}
 
-                            <Text style={[styles.label, active && styles.activeLabel]}>{active && t.label}</Text>
+                            {active && <Text style={[styles.label, active && styles.activeLabel]}>{active && t.label}</Text>}
 
                         </Pressable>
 
@@ -84,11 +84,12 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 8,
         overflow: "hidden",
+        height: 64
     },
-    item: { flex: 1, paddingVertical: 14, alignItems: "center" },
+    item: { flex: 1, paddingVertical: 14, alignItems: "center", justifyContent: 'center', },
     pressed: { opacity: 0.85 },
     activeItem: { backgroundColor: "rgba(255, 255, 255, 0.05)" },
-    label: { color: Colors.muted, fontSize: 13, fontWeight: "700" },
-    activeLabel: { color: Colors.text },
+    label: { color: Colors.muted },
+    activeLabel: { color: Colors.text, fontSize: 11, fontWeight: "700" },
     icon: { color: Colors.muted, },
 });

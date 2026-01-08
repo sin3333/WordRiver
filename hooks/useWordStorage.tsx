@@ -18,7 +18,13 @@ export function useWordStorage() {
                 console.log('読み込みエラー:', e);
             }
         },
-        save: async (WordItem: WordItem[]) => { },
+        save: async (items: WordItem[]): Promise<void> => {
+            try {
+                await AsyncStorage.setItem('WordStorage', JSON.stringify(items));
+            } catch (e) {
+                console.log('保存エラー:', e);
+            }
+        },
     };
 
 }

@@ -2,7 +2,7 @@ import { useState, React } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { WordItem } from "../types/word";
-import { WordStorage } from "@/storage/WordStorage";
+import { WordStorage } from "../storage/WordStorage";
 
 export function useWordStorage() {
 

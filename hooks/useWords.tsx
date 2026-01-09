@@ -1,11 +1,9 @@
-import { useState, React, useEffect } from "react";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-import { usewordStorage } from "./useWordStorage";
+import React, { useState, useEffect } from "react";
+import { useWordStorage } from "./useWordStorage";
 import { WordItem } from "../types/word";
 
-function useWord() {
-    const storage = usewordStorage();
+export function useWords() {
+    const storage = useWordStorage();
     const [wordList, setWordList] = useState<WordItem[]>([]);
 
     useEffect(() => {

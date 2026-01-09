@@ -4,17 +4,21 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "../../theme/colors";
 import { BottomBar } from "../../components/BottomBar";
 
+import { useWords } from "@/hooks/useWords";
+
 export default function AddWordScreen() {
+    const storage = useWords();
     const [word, setWord] = useState("");
     const [note, setNote] = useState("");
 
     const onSave = () => {
+
         const w = word.trim();
         if (!w) {
             Alert.alert("入力", "単語を入力してね");
             return;
         }
-        // TODO: AsyncStorage / DB に保存
+        storage.addWord({ word: w, note: note });
         Alert.alert("保存", `「${w}」を保存（ダミー）`);
         setWord("");
         setNote("");

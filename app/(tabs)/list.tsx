@@ -1,24 +1,44 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useCallback } from "react";
 import { FlatList, StyleSheet, Text, TextInput, View } from "react-native";
+import { useFocusEffect } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "../../theme/colors";
 import { WordCard } from "../../components/WordCard";
 import { BottomBar } from "../../components/BottomBar";
 import type { WordItem } from "../../types/word";
 
-const seed: WordItem[] = [
+import { useWords } from "../../hooks/useWords";
+import { useWordStorage } from "../../hooks/useWordStorage";
+
+const seed: WordItem[] = [ //後で消す
     { id: "1", word: "drift", note: "漂う", createdAt: new Date().toISOString() },
     { id: "2", word: "current", note: "潮流 / 流れ", createdAt: new Date(Date.now() - 86400000).toISOString() },
     { id: "3", word: "abyss", note: "深淵", createdAt: new Date(Date.now() - 86400000 * 2).toISOString() },
 ];
 
+
+
 export default function SearchScreen() {
+    const Storage = useWordStorage();
+    const [items, setItems] = useState<WordItem[]>([]);
+
     const [q, setQ] = useState("");
     const data = useMemo(() => {
         const s = q.trim().toLowerCase();
         if (!s) return seed;
         return seed.filter((w) => w.word.toLowerCase().includes(s) || (w.note ?? "").toLowerCase().includes(s));
     }, [q]);
+
+    const reload = useCallback(async () => {
+        const data = await Storage.load();
+        setItems(data);
+    })
+
+    useFocusEffect(
+        useCallback(() => {
+            reload();
+        }, [reload])
+    )
 
     return (
         <LinearGradient colors={[Colors.bgTop, Colors.bgMid, Colors.bgBottom]} style={styles.root}>
@@ -39,7 +59,7 @@ export default function SearchScreen() {
 
             <FlatList
                 contentContainerStyle={styles.listContent}
-                data={data}
+                data={items}
                 keyExtractor={(i) => i.id}
                 renderItem={({ item }) => <WordCard item={item} />}
                 ItemSeparatorComponent={() => <View style={{ height: 12 }} />}

@@ -16,8 +16,14 @@ export function useWords() {
         storage.save(newWordList);
     };
 
+    const removeWord = async (id: string) => {
+        setWordList(prev => prev.filter(word => word.id !== id));
+        await storage.delete(id);
+    }
+
     return {
         wordList,
         addWord,
+        removeWord,
     }
 }

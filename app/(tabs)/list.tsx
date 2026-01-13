@@ -1,5 +1,5 @@
-import React, { useMemo, useState, useCallback } from "react";
-import { FlatList, StyleSheet, Text, TextInput, View } from "react-native";
+import React, { useMemo, useState, useCallback, useEffect } from "react";
+import { FlatList, StyleSheet, Text, TextInput, View, Button } from "react-native";
 import { useFocusEffect } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "../../theme/colors";
@@ -18,9 +18,14 @@ const seed: WordItem[] = [ //後で消す
 
 
 
-export default function SearchScreen() {
+export default function ListScreen() {
     const Storage = useWordStorage();
-    const [items, setItems] = useState<WordItem[]>([]);
+    const { wordList, setWordList } = useWords();
+
+    useEffect(() => { //デバッグ用
+        console.log(wordList);
+    }, []);
+
 
     const [q, setQ] = useState("");
     const data = useMemo(() => {
@@ -31,7 +36,7 @@ export default function SearchScreen() {
 
     const reload = useCallback(async () => {
         const data = await Storage.load();
-        setItems(data);
+        setWordList(data);
     })
 
     useFocusEffect(
@@ -39,6 +44,9 @@ export default function SearchScreen() {
             reload();
         }, [reload])
     )
+
+
+
 
     return (
         <LinearGradient colors={[Colors.bgTop, Colors.bgMid, Colors.bgBottom]} style={styles.root}>
@@ -59,15 +67,26 @@ export default function SearchScreen() {
 
             <FlatList
                 contentContainerStyle={styles.listContent}
-                data={items}
+                data={wordList}
                 keyExtractor={(i) => i.id}
                 renderItem={({ item }) => <WordCard item={item} />}
                 ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
                 ListEmptyComponent={<Text style={styles.empty}>見つからない</Text>}
             />
 
+            <Button //デバッグ用
+                title="ストレージ全削除（デバッグ用）"
+                onPress={async () => {
+                    await Storage.allDelete();
+                    console.warn("STORAGE CLEARED");
+                }}
+            />
+
             <BottomBar />
+
+
         </LinearGradient>
+
     );
 }
 

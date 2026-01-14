@@ -1,19 +1,22 @@
 import React from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Tabs } from "expo-router";
 
 export default function TabsLayout() {
   // BottomBarは各画面の下に置く（カスタムUIしやすい）
   // Tabs自体はヘッダーやジェスチャーだけ提供してもらう
   return (
-    <Tabs
-      screenOptions={{
-        headerShown: false,
-        tabBarStyle: { display: "none" },
-      }}
-    >
-      <Tabs.Screen name="play" />
-      <Tabs.Screen name="add" />
-      <Tabs.Screen name="list" />
-    </Tabs>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Tabs
+        screenOptions={{
+          headerShown: false,
+          tabBarStyle: { display: "none" },
+        }}
+      >
+        <Tabs.Screen name="play" />
+        <Tabs.Screen name="add" />
+        <Tabs.Screen name="list" />
+      </Tabs>
+    </GestureHandlerRootView>
   );
 }

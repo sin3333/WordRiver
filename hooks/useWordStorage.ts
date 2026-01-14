@@ -29,7 +29,8 @@ export function useWordStorage() {
         },
 
         delete: async (id: string): Promise<void> => {
-            const current = await load();
+            const storage = useWordStorage();
+            const current = await storage.load();
             const updated = current.filter(item => item.id !== id);
             await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
         },

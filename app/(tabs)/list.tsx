@@ -5,6 +5,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "../../theme/colors";
 import { WordCard } from "../../components/WordCard";
 import { BottomBar } from "../../components/BottomBar";
+import { SwipeWordRow } from "@/components/SwipeWordRow";
 import type { WordItem } from "../../types/word";
 
 import { useWords } from "../../hooks/useWords";
@@ -20,7 +21,7 @@ const seed: WordItem[] = [ //後で消す
 
 export default function ListScreen() {
     const Storage = useWordStorage();
-    const { wordList, setWordList } = useWords();
+    const { wordList, setWordList, removeWord } = useWords();
 
     useEffect(() => { //デバッグ用
         console.log(wordList);
@@ -38,6 +39,13 @@ export default function ListScreen() {
         const data = await Storage.load();
         setWordList(data);
     })
+
+    const renderItem = useCallback(
+        ({ item }: any) => (
+            <SwipeWordRow item={item} onDelete={() => removeWord(item.id)} />
+        ),
+        [removeWord]
+    );
 
     useFocusEffect(
         useCallback(() => {
@@ -72,6 +80,7 @@ export default function ListScreen() {
                 renderItem={({ item }) => <WordCard item={item} />}
                 ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
                 ListEmptyComponent={<Text style={styles.empty}>見つからない</Text>}
+                renderItem={renderItem}
             />
 
             <Button //デバッグ用

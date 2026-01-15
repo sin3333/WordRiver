@@ -13,15 +13,26 @@ export function useWords() {
     }, []);
 
     const addWord = async (input: { word: string; note?: string }) => {
-        const item: WordItem = { id: makeId(), createdAt: Date.now(), word: input.word.trim(), note: input.note?.trim() };
-        const newWordList = [item, ...wordList];
-        setWordList(newWordList);
-        storage.save(newWordList);
+        const item: WordItem = {
+            id: makeId(),
+            createdAt: Date.now(),
+            word: input.word.trim(),
+            note: input.note?.trim()
+        };
+
+
+        setWordList((prev => {
+            const updated = [item, ...prev];
+            void storage.save((updated));
+            return updated;
+        }))
+
+
     };
 
     const removeWord = async (id: string) => {
         setWordList(prev => prev.filter(word => word.id !== id));
-        await storage.delete(id);
+        await storage.remove(id);
     }
 
     return {

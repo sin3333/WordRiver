@@ -12,9 +12,9 @@ import { useWords } from "../../hooks/useWords";
 import { useWordStorage } from "../../hooks/useWordStorage";
 
 const seed: WordItem[] = [ //後で消す
-    { id: "1", word: "drift", note: "漂う", createdAt: new Date().toISOString() },
-    { id: "2", word: "current", note: "潮流 / 流れ", createdAt: new Date(Date.now() - 86400000).toISOString() },
-    { id: "3", word: "abyss", note: "深淵", createdAt: new Date(Date.now() - 86400000 * 2).toISOString() },
+    { id: "1", word: "drift", note: "漂う", createdAt: new Date() },
+    { id: "2", word: "current", note: "潮流 / 流れ", createdAt: new Date(Date.now() - 86400000) },
+    { id: "3", word: "abyss", note: "深淵", createdAt: new Date(Date.now() - 86400000 * 2) },
 ];
 
 
@@ -38,10 +38,10 @@ export default function ListScreen() {
     const reload = useCallback(async () => {
         const data = await Storage.load();
         setWordList(data);
-    })
+    }, [Storage]);
 
     const renderItem = useCallback(
-        ({ item }: any) => (
+        ({ item }: { item: WordItem }) => (
             <SwipeWordRow item={item} onDelete={() => removeWord(item.id)} />
         ),
         [removeWord]
@@ -49,9 +49,9 @@ export default function ListScreen() {
 
     useFocusEffect(
         useCallback(() => {
-            reload();
+            void reload();
         }, [reload])
-    )
+    );
 
 
 
@@ -77,7 +77,6 @@ export default function ListScreen() {
                 contentContainerStyle={styles.listContent}
                 data={wordList}
                 keyExtractor={(i) => i.id}
-                renderItem={({ item }) => <WordCard item={item} />}
                 ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
                 ListEmptyComponent={<Text style={styles.empty}>見つからない</Text>}
                 renderItem={renderItem}
@@ -87,6 +86,7 @@ export default function ListScreen() {
                 title="ストレージ全削除（デバッグ用）"
                 onPress={async () => {
                     await Storage.allDelete();
+                    setWordList([]);
                     console.warn("STORAGE CLEARED");
                 }}
             />

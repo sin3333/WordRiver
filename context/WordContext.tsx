@@ -11,3 +11,36 @@ type WordContextValue = {
 };
 
 const WordsContext = createContext<WordContextValue | null>(null);
+
+export function WordsProvider({ children }: { children: React.ReactNode }) {
+    const storage = useWordStorage();
+    const [WordList, setWordList] = useState<WordItem[]>([]);
+
+    useEffect(() => {
+        void reload();
+    }, []);
+
+    const reload = useCallback(async () => {
+        const words = await storage.load();
+        setWordList(words);
+    }, [storage]);
+
+    const addWord = useCallback(
+        async (input: { word: string; note? string }) => {
+            const item: WordItem = {
+                id: crypto.randomUUID(),
+                createdAt: Date.now(),
+                word: input.word.trim(),
+                note: input.note?.trim(),
+            };
+            setWordList(prev => {
+                const newList = [item, ...prev]
+                storage.save(newList);
+                return newList;
+            });
+        },
+        [storage]
+    );
+
+
+}

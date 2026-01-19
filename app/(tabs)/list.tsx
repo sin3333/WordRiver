@@ -20,8 +20,7 @@ const seed: WordItem[] = [ //後で消す
 
 
 export default function ListScreen() {
-    const Storage = useWordStorage();
-    const { wordList, setWordList, removeWord } = useWords();
+    const { wordList, reload, removeWord, clearAll } = useWords();
 
     useEffect(() => { //デバッグ用
         console.log(wordList);
@@ -35,11 +34,11 @@ export default function ListScreen() {
         return seed.filter((w) => w.word.toLowerCase().includes(s) || (w.note ?? "").toLowerCase().includes(s));
     }, [q]);
 
-    const reload = useCallback(async () => {
+    /*const reload = useCallback(async () => {
         const data = await Storage.load();
         setWordList(data);
     }, [Storage]);
-
+*/
     const renderItem = useCallback(
         ({ item }: { item: WordItem }) => (
             <SwipeWordRow item={item} onDelete={() => removeWord(item.id)} />
@@ -85,8 +84,7 @@ export default function ListScreen() {
             <Button //デバッグ用
                 title="ストレージ全削除（デバッグ用）"
                 onPress={async () => {
-                    await Storage.allDelete();
-                    setWordList([]);
+                    await clearAll();
                     console.warn("STORAGE CLEARED");
                 }}
             />

@@ -1,44 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useWordStorage } from "./useWordStorage";
-import { WordItem } from "../types/word";
-
-const makeId = () => `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+import { useContext } from "react";
+import { WordsContext } from "../context/WordContext";
 
 export function useWords() {
-    const storage = useWordStorage();
-    const [wordList, setWordList] = useState<WordItem[]>([]);
-
-    useEffect(() => {
-        storage.load().then(setWordList);
-    }, []);
-
-    const addWord = async (input: { word: string; note?: string }) => {
-        const item: WordItem = {
-            id: makeId(),
-            createdAt: Date.now(),
-            word: input.word.trim(),
-            note: input.note?.trim()
-        };
-
-
-        setWordList((prev => {
-            const updated = [item, ...prev];
-            void storage.save((updated));
-            return updated;
-        }))
-
-
-    };
-
-    const removeWord = async (id: string) => {
-        setWordList(prev => prev.filter(word => word.id !== id));
-        await storage.remove(id);
+    const ctx = useContext(WordsContext);
+    if (!ctx) {
+        throw new Error("useWords must be used within a WordsProvider");
     }
-
-    return {
-        wordList,
-        setWordList,
-        addWord,
-        removeWord,
-    }
+    return ctx;
 }

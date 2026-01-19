@@ -2,7 +2,10 @@ import React, { createContext, useContext, useEffect, useCallback, useState } fr
 import { WordItem } from "../types/word";
 import { useWordStorage } from "../hooks/useWordStorage";
 
-type WordContextValue = {
+import 'react-native-get-random-values';
+import { v4 as uuidv4 } from 'uuid';//UUID生成用ポリフィル
+
+type WordsContextValue = {
     wordList: WordItem[];
     addWord: (input: { word: string; note?: string }) => Promise<void>;
     removeWord: (id: string) => void;
@@ -10,11 +13,11 @@ type WordContextValue = {
     clearAll: () => Promise<void>;
 };
 
-const WordsContext = createContext<WordContextValue | null>(null);
+export const WordsContext = createContext<WordsContextValue | null>(null);
 
 export function WordsProvider({ children }: { children: React.ReactNode }) {
     const storage = useWordStorage();
-    const [WordList, setWordList] = useState<WordItem[]>([]);
+    const [wordList, setWordList] = useState<WordItem[]>([]);
 
     useEffect(() => {
         void reload();
@@ -26,9 +29,9 @@ export function WordsProvider({ children }: { children: React.ReactNode }) {
     }, [storage]);
 
     const addWord = useCallback(
-        async (input: { word: string; note? string }) => {
+        async (input: { word: string; note?: string }) => {
             const item: WordItem = {
-                id: crypto.randomUUID(),
+                id: uuidv4(),
                 createdAt: Date.now(),
                 word: input.word.trim(),
                 note: input.note?.trim(),
@@ -41,6 +44,29 @@ export function WordsProvider({ children }: { children: React.ReactNode }) {
         },
         [storage]
     );
+
+    const removeWord = useCallback(
+        (id: string) => {
+            setWordList(prev => {
+                const newList = prev.filter(w => w.id !== id);
+                storage.save(newList);
+                return newList;
+            });
+        },
+        [storage]
+    );
+
+    const clearAll = useCallback(async () => {
+        await storage.allDelete();
+        setWordList([]);
+    }, [storage]);
+
+    return (
+        <WordsContext.Provider value={{ wordList, addWord, removeWord, reload, clearAll }}
+        >
+            {children}
+        </WordsContext.Provider>
+    )
 
 
 }

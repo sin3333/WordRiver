@@ -7,9 +7,11 @@ import { WordCard } from "../../components/WordCard";
 import { BottomBar } from "../../components/BottomBar";
 import { SwipeWordRow } from "@/components/SwipeWordRow";
 import type { WordItem } from "../../types/word";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useWords } from "../../hooks/useWords";
 import { useWordStorage } from "../../hooks/useWordStorage";
+import { SafeAreaContext, SafeAreaFrameContext } from "react-native-safe-area-context";
 
 const seed: WordItem[] = [ //後で消す
     { id: "1", word: "drift", note: "漂う", createdAt: new Date() },
@@ -56,43 +58,45 @@ export default function ListScreen() {
 
 
     return (
-        <LinearGradient colors={[Colors.bgTop, Colors.bgMid, Colors.bgBottom]} style={styles.root}>
-            <View style={styles.header}>
-                <Text style={styles.title}>検索</Text>
-                <Text style={styles.subtitle}>find a word in the current</Text>
-            </View>
+        <SafeAreaView style={{ flex: 1 }}>
+            <LinearGradient colors={[Colors.bgTop, Colors.bgMid, Colors.bgBottom]} style={styles.root}>
+                <View style={styles.header}>
+                    <Text style={styles.title}>検索</Text>
+                    <Text style={styles.subtitle}>find a word in the current</Text>
+                </View>
 
-            <View style={styles.searchBox}>
-                <TextInput
-                    value={q}
-                    onChangeText={setQ}
-                    placeholder="検索…"
-                    placeholderTextColor={Colors.muted}
-                    style={styles.input}
+                <View style={styles.searchBox}>
+                    <TextInput
+                        value={q}
+                        onChangeText={setQ}
+                        placeholder="検索…"
+                        placeholderTextColor={Colors.muted}
+                        style={styles.input}
+                    />
+                </View>
+
+                <FlatList
+                    contentContainerStyle={styles.listContent}
+                    data={wordList}
+                    keyExtractor={(i) => i.id}
+                    ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
+                    ListEmptyComponent={<Text style={styles.empty}>見つからない</Text>}
+                    renderItem={renderItem}
                 />
-            </View>
 
-            <FlatList
-                contentContainerStyle={styles.listContent}
-                data={wordList}
-                keyExtractor={(i) => i.id}
-                ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
-                ListEmptyComponent={<Text style={styles.empty}>見つからない</Text>}
-                renderItem={renderItem}
-            />
+                <Button //デバッグ用
+                    title="ストレージ全削除（デバッグ用）"
+                    onPress={async () => {
+                        await clearAll();
+                        console.warn("STORAGE CLEARED");
+                    }}
+                />
 
-            <Button //デバッグ用
-                title="ストレージ全削除（デバッグ用）"
-                onPress={async () => {
-                    await clearAll();
-                    console.warn("STORAGE CLEARED");
-                }}
-            />
-
-            <BottomBar />
+                <BottomBar />
 
 
-        </LinearGradient>
+            </LinearGradient>
+        </SafeAreaView>
 
     );
 }

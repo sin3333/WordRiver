@@ -3,6 +3,7 @@ import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "../../theme/colors";
 import { BottomBar } from "../../components/BottomBar";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useWords } from "@/hooks/useWords";
 
@@ -26,39 +27,41 @@ export default function AddWordScreen() {
     };
 
     return (
-        <LinearGradient colors={[Colors.bgTop, Colors.bgMid, Colors.bgBottom]} style={styles.root}>
-            <View style={styles.header}>
-                <Text style={styles.title}>単語追加</Text>
-                <Text style={styles.subtitle}>drop a word into the river</Text>
-            </View>
+        <SafeAreaView style={{ flex: 1 }}>
+            <LinearGradient colors={[Colors.bgTop, Colors.bgMid, Colors.bgBottom]} style={styles.root}>
+                <View style={styles.header}>
+                    <Text style={styles.title}>単語追加</Text>
+                    <Text style={styles.subtitle}>drop a word into the river</Text>
+                </View>
 
-            <View style={styles.form}>
-                <Text style={styles.label}>単語</Text>
-                <TextInput
-                    value={word}
-                    onChangeText={setWord}
-                    placeholder="例：drift"
-                    placeholderTextColor={Colors.muted}
-                    style={styles.input}
-                />
+                <View style={styles.form}>
+                    <Text style={styles.label}>単語</Text>
+                    <TextInput
+                        value={word}
+                        onChangeText={setWord}
+                        placeholder="例：drift"
+                        placeholderTextColor={Colors.muted}
+                        style={styles.input}
+                    />
 
-                <Text style={[styles.label, { marginTop: 14 }]}>メモ</Text>
-                <TextInput
-                    value={note}
-                    onChangeText={setNote}
-                    placeholder="意味 / 例文 / 補足"
-                    placeholderTextColor={Colors.muted}
-                    style={[styles.input, styles.textarea]}
-                    multiline
-                />
+                    <Text style={[styles.label, { marginTop: 14 }]}>メモ</Text>
+                    <TextInput
+                        value={note}
+                        onChangeText={setNote}
+                        placeholder="意味 / 例文 / 補足"
+                        placeholderTextColor={Colors.muted}
+                        style={[styles.input, styles.textarea]}
+                        multiline
+                    />
 
-                <Text onPress={onSave} style={styles.saveButton}>
-                    追加
-                </Text>
-            </View>
+                    <Text onPress={onSave} style={styles.saveButton}>
+                        追加
+                    </Text>
+                </View>
 
-            <BottomBar />
-        </LinearGradient>
+                <BottomBar />
+            </LinearGradient>
+        </SafeAreaView>
     );
 }
 

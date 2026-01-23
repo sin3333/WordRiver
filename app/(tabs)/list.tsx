@@ -11,7 +11,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useWords } from "../../hooks/useWords";
 import { useWordStorage } from "../../hooks/useWordStorage";
-import { SafeAreaContext, SafeAreaFrameContext } from "react-native-safe-area-context";
+
 
 const seed: WordItem[] = [ //後で消す
     { id: "1", word: "drift", note: "漂う", createdAt: new Date() },
@@ -58,52 +58,52 @@ export default function ListScreen() {
 
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <LinearGradient colors={[Colors.bgTop, Colors.bgMid, Colors.bgBottom]} style={styles.root}>
-                <View style={styles.header}>
-                    <Text style={styles.title}>検索</Text>
-                    <Text style={styles.subtitle}>find a word in the current</Text>
-                </View>
 
-                <View style={styles.searchBox}>
-                    <TextInput
-                        value={q}
-                        onChangeText={setQ}
-                        placeholder="検索…"
-                        placeholderTextColor={Colors.muted}
-                        style={styles.input}
-                    />
-                </View>
+        <LinearGradient colors={[Colors.bgTop, Colors.bgMid, Colors.bgBottom]} style={styles.root}>
+            <View style={styles.header}>
+                <Text style={styles.title}>検索</Text>
+                <Text style={styles.subtitle}>find a word in the current</Text>
+            </View>
 
-                <FlatList
-                    contentContainerStyle={styles.listContent}
-                    data={wordList}
-                    keyExtractor={(i) => i.id}
-                    ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
-                    ListEmptyComponent={<Text style={styles.empty}>見つからない</Text>}
-                    renderItem={renderItem}
+            <View style={styles.searchBox}>
+                <TextInput
+                    value={q}
+                    onChangeText={setQ}
+                    placeholder="検索…"
+                    placeholderTextColor={Colors.muted}
+                    style={styles.input}
                 />
+            </View>
 
-                <Button //デバッグ用
-                    title="ストレージ全削除（デバッグ用）"
-                    onPress={async () => {
-                        await clearAll();
-                        console.warn("STORAGE CLEARED");
-                    }}
-                />
+            <FlatList
+                contentContainerStyle={styles.listContent}
+                data={wordList}
+                keyExtractor={(i) => i.id}
+                ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
+                ListEmptyComponent={<Text style={styles.empty}>見つからない</Text>}
+                renderItem={renderItem}
+            />
 
-                <BottomBar />
+            <Button //デバッグ用
+                title="ストレージ全削除（デバッグ用）"
+                onPress={async () => {
+                    await clearAll();
+                    console.warn("STORAGE CLEARED");
+                }}
+            />
+
+            <BottomBar />
 
 
-            </LinearGradient>
-        </SafeAreaView>
+        </LinearGradient>
+
 
     );
 }
 
 const styles = StyleSheet.create({
     root: { flex: 1 },
-    header: { paddingHorizontal: 18, paddingTop: 18, paddingBottom: 10 },
+    header: { paddingHorizontal: 18, paddingTop: 0, paddingBottom: 10 },
     title: { color: Colors.text, fontSize: 22, fontWeight: "800" },
     subtitle: { color: Colors.subtext, marginTop: 6 },
     searchBox: { paddingHorizontal: 18, paddingTop: 6, paddingBottom: 6 },

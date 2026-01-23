@@ -74,7 +74,7 @@ function isActive(pathname: string | null, href: string) {
 const styles = StyleSheet.create({
     wrap: {
         paddingHorizontal: 18,
-        paddingBottom: 20,
+        paddingBottom: 10,
         paddingTop: 10,
     },
     bar: {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
+import { Alert, StyleSheet, Text, TextInput, View, Keyboard } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "../../theme/colors";
 import { BottomBar } from "../../components/BottomBar";
@@ -21,7 +21,8 @@ export default function AddWordScreen() {
             return;
         }
         await addWord({ word: w, note: note });
-        Alert.alert("保存", `「${w}」を保存（ダミー）`);
+        Alert.alert("保存", `「${w}」を保存`);
+        Keyboard.dismiss();
         setWord("");
         setNote("");
     };

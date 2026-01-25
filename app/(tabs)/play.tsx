@@ -1,11 +1,14 @@
 import React, { useMemo } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, Text, View, useWindowDimensions } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "../../theme/colors";
 import { WordCard } from "../../components/WordCard";
 import { BottomBar } from "../../components/BottomBar";
 import type { WordItem } from "../../types/word";
 
+import { Default_stream_config } from '@/config/streamConfig'
+import { useStreamLane } from "@/hooks/useStreamLane";
+import { StreamText } from "@/components/StreamText"
 
 const seed: WordItem[] = [
   { id: "1", word: "単語", note: "深海みたいに静かに流れるUI", createdAt: new Date().toISOString() },
@@ -20,17 +23,11 @@ export default function WordListScreen() {
 
     <LinearGradient colors={[Colors.bgTop, Colors.bgMid, Colors.bgBottom]} style={styles.root}>
       <View style={styles.header}>
-        <Text style={styles.title}>単語一覧</Text>
+        <Text style={styles.title}>Play</Text>
         <Text style={styles.subtitle}>words drifting in the deep</Text>
       </View>
 
-      <FlatList
-        contentContainerStyle={styles.listContent}
-        data={data}
-        keyExtractor={(i) => i.id}
-        renderItem={({ item }) => <WordCard item={item} />}
-        ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
-      />
+
 
       <BottomBar />
     </LinearGradient>
@@ -39,7 +36,7 @@ export default function WordListScreen() {
 }
 
 const styles = StyleSheet.create({
-  root: { flex: 1 },
+  root: { flex: 1, justifyContent: 'space-between' },
   header: { paddingHorizontal: 18, paddingTop: 0, paddingBottom: 10 },
   title: { color: Colors.text, fontSize: 22, fontWeight: "800" },
   subtitle: { color: Colors.subtext, marginTop: 6 },

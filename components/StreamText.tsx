@@ -19,11 +19,11 @@ export function StreamText({ text, x, width, y, visible }: Props) {
     if (!visible) return null;
 
     return (
-        <Animated.View style= { [styles.comment, { left: x, width }, animatedStyle]} >
-        <Text numberOfLines={ 1 } ellipsizeMode = "tail" style = { styles.text } >
-            { text }
+        <Animated.View style={[styles.comment, { left: x, width }, animatedStyle]} >
+            <Text numberOfLines={1} ellipsizeMode="tail" style={styles.text} >
+                {text}
             </Text>
-            </Animated.View>
+        </Animated.View>
     );
 }
 

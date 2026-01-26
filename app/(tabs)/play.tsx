@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
 import { FlatList, StyleSheet, Text, View, useWindowDimensions } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "../../theme/colors";
@@ -11,13 +11,27 @@ import { useStreamLane } from "@/hooks/useStreamLane";
 import { StreamText } from "@/components/StreamText"
 
 const seed: WordItem[] = [
-  { id: "1", word: "単語", note: "深海みたいに静かに流れるUI", createdAt: new Date().toISOString() },
-  { id: "2", word: "sample", note: "タップで詳細に行く…など後で拡張", createdAt: new Date(Date.now() - 86400000).toISOString() },
-  { id: "3", word: "drift", note: "漂う / ゆっくり流れる", createdAt: new Date(Date.now() - 86400000 * 2).toISOString() },
+  //TODO
 ];
 
 export default function WordListScreen() {
-  const data = useMemo(() => seed, []);
+  const { width, height } = useWindowDimensions();
+  const cfg = Default_stream_config;
+
+  const { y, visible, start } = useStreamLane({
+    cfg,
+    screenHeight: height,
+  });
+
+  const laneX = cfg.lanePaddingLeft;
+  const CommentWidth = width * cfg.maxwidthRatio;
+
+  useEffect(() => {
+    //単一レーン処理
+    start();
+    //複数レーンになったときの処理
+  }, [height]);
+
 
   return (
 
@@ -26,6 +40,14 @@ export default function WordListScreen() {
         <Text style={styles.title}>Play</Text>
         <Text style={styles.subtitle}>words drifting in the deep</Text>
       </View>
+
+      <StreamText
+        text='hello world'
+        x={laneX}
+        width={CommentWidth}
+        y={y}
+        visible={visible}
+      />
 
 
 
@@ -41,4 +63,18 @@ const styles = StyleSheet.create({
   title: { color: Colors.text, fontSize: 22, fontWeight: "800" },
   subtitle: { color: Colors.subtext, marginTop: 6 },
   listContent: { paddingHorizontal: 18, paddingTop: 6, paddingBottom: 8 },
-});
+
+  button: {
+    position: 'absolute',
+    top: 16,
+    right: 16,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    borderRadius: 10,
+    backgroundColor: "rgba(0,0,0,0,15)",
+    zIndex: 10,
+  },
+  bottonText: { fontSize: 14 },
+
+}
+);

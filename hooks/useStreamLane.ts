@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
 import type { StreamConfig } from '../types/streamItemTypes';
-import { useSharedValue, withTiming, Easing, } from 'react-native-reanimated';
+import { useSharedValue, withTiming, Easing, runOnJS } from 'react-native-reanimated';
 import { scheduleOnRN } from 'react-native-worklets';
 
 type Params = {
@@ -22,12 +22,13 @@ export function useStreamLane({ cfg, screenHeight }: Params) {
             -cfg.toOffsetY,
             { duration: d, easing: Easing.linear },
             (finished) => {
-                "Worklet";
+                "worklet";
+
                 if (finished) {
-                    scheduleOnRN(() => {
-                        setVisible(false);
-                    });
+                    scheduleOnRN(setVisible, false);
                 }
+
+
             }
         );
     }, [cfg.baseDurationMs, cfg.fromOffsetY, cfg.toOffsetY, screenHeight, y]);

@@ -36,33 +36,42 @@ export default function WordListScreen() {
   return (
 
     <LinearGradient colors={[Colors.bgTop, Colors.bgMid, Colors.bgBottom]} style={styles.root}>
+
       <View style={styles.header}>
         <Text style={styles.title}>Play</Text>
         <Text style={styles.subtitle}>words drifting in the deep</Text>
       </View>
 
-      <StreamText
-        text='hello world'
-        x={laneX}
-        width={CommentWidth}
-        y={y}
-        visible={visible}
-      />
-
-
+      <View style={styles.absoluteFill}>
+        <StreamText
+          text='hello world'
+          x={laneX}
+          width={CommentWidth}
+          y={y}
+          visible={visible}
+        />
+      </View>
 
       <BottomBar />
+
     </LinearGradient>
 
   );
 }
 
 const styles = StyleSheet.create({
-  root: { flex: 1, justifyContent: 'space-between' },
+  root: { flex: 1, justifyContent: "space-between" },
   header: { paddingHorizontal: 18, paddingTop: 0, paddingBottom: 10 },
   title: { color: Colors.text, fontSize: 22, fontWeight: "800" },
   subtitle: { color: Colors.subtext, marginTop: 6 },
   listContent: { paddingHorizontal: 18, paddingTop: 6, paddingBottom: 8 },
+
+  absoluteFill: {
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+  },
 
   button: {
     position: 'absolute',

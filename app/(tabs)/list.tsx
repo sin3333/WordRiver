@@ -4,7 +4,6 @@ import { useFocusEffect } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "../../theme/colors";
 import { WordCard } from "../../components/WordCard";
-import { BottomBar } from "../../components/BottomBar";
 import { SwipeWordRow } from "@/components/SwipeWordRow";
 import type { WordItem } from "../../types/word";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -92,7 +91,6 @@ export default function ListScreen() {
                 }}
             />
 
-            <BottomBar />
 
 
         </LinearGradient>

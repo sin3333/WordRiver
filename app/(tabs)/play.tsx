@@ -42,7 +42,7 @@ export default function WordListScreen() {
         <Text style={styles.subtitle}>words drifting in the deep</Text>
       </View>
 
-      <View style={styles.absoluteFill}>
+      <View style={styles.absoluteFill} pointerEvents="none">
         <StreamText
           text='hello world'
           x={laneX}
@@ -52,7 +52,7 @@ export default function WordListScreen() {
         />
       </View>
 
-      <BottomBar />
+
 
     </LinearGradient>
 
@@ -60,7 +60,7 @@ export default function WordListScreen() {
 }
 
 const styles = StyleSheet.create({
-  root: { flex: 1, justifyContent: "space-between" },
+  root: { flex: 1, },
   header: { paddingHorizontal: 18, paddingTop: 0, paddingBottom: 10 },
   title: { color: Colors.text, fontSize: 22, fontWeight: "800" },
   subtitle: { color: Colors.subtext, marginTop: 6 },

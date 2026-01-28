@@ -73,18 +73,18 @@ function isActive(pathname: string | null, href: string) {
 
 const styles = StyleSheet.create({
     wrap: {
-        paddingHorizontal: 18,
-        paddingBottom: 10,
-        paddingTop: 10,
+
+        backgroundColor: "rgb(0, 0, 0)",
+        borderColor: "rgb(255, 255, 255)",
+        paddingHorizontal: 0,
+        paddingBottom: 0,
+        paddingTop: 0,
     },
     bar: {
         flexDirection: "row",
-        backgroundColor: "rgba(0,0,0,0.22)",
-        borderColor: "rgba(255,255,255,0.10)",
-        borderWidth: 1,
         borderRadius: 8,
         overflow: "hidden",
-        height: 64
+        height: 50,
     },
     item: { flex: 1, paddingVertical: 14, alignItems: "center", justifyContent: 'center', },
     pressed: { opacity: 0.85 },

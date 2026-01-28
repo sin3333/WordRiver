@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Alert, StyleSheet, Text, TextInput, View, Keyboard } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "../../theme/colors";
-import { BottomBar } from "../../components/BottomBar";
 
 
 import { useWords } from "@/hooks/useWords";
@@ -60,7 +59,7 @@ export default function AddWordScreen() {
                 </Text>
             </View>
 
-            <BottomBar />
+
         </LinearGradient>
 
     );

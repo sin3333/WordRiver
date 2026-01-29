@@ -3,22 +3,27 @@ import { FlatList, StyleSheet, Text, View, useWindowDimensions } from "react-nat
 import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "../../theme/colors";
 import { WordCard } from "../../components/WordCard";
-import { BottomBar } from "../../components/BottomBar";
 import type { WordItem } from "../../types/word";
 
 import { Default_stream_config } from '@/config/streamConfig'
+import { StreamItem } from "@/types/streamItemTypes"
 import { useStreamLane } from "@/hooks/useStreamLane";
-import { StreamText } from "@/components/StreamText"
+import { StreamText } from "@/components/StreamText";
+import { useWords } from '@/hooks/useWords';
 
-const seed: WordItem[] = [
-  //TODO
-];
+
+
+function makePlayId() {
+  return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+};
 
 export default function WordListScreen() {
   const { width, height } = useWindowDimensions();
   const cfg = Default_stream_config;
 
-  const { y, visible, start } = useStreamLane({
+  const { pickRandomWord } = useWords();
+
+  const { y, active, start } = useStreamLane({
     cfg,
     screenHeight: height,
   });
@@ -26,9 +31,23 @@ export default function WordListScreen() {
   const laneX = cfg.lanePaddingLeft;
   const CommentWidth = width * cfg.maxwidthRatio;
 
+  const runWord = (() => {
+    const picked = pickRandomWord();
+    if (!picked) return;
+
+    const item: StreamItem = {
+      id: makePlayId(),
+      word: picked.word,
+      laneIndex: 0,
+      createdAt: Date.now(),
+      durationMs: cfg.baseDurationMs,
+    }
+    start(item);
+  })
+
   useEffect(() => {
     //単一レーン処理
-    start();
+    runWord();
     //複数レーンになったときの処理
   }, [height]);
 
@@ -43,13 +62,15 @@ export default function WordListScreen() {
       </View>
 
       <View style={styles.absoluteFill} pointerEvents="none">
-        <StreamText
-          text='hello world'
-          x={laneX}
-          width={CommentWidth}
-          y={y}
-          visible={visible}
-        />
+        {active && (
+          <StreamText
+            text={active.word}
+            x={laneX}
+            width={CommentWidth}
+            y={y}
+            visible={true}
+          />
+        )}
       </View>
 
 

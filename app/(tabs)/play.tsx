@@ -10,6 +10,7 @@ import { StreamItem } from "@/types/streamItemTypes"
 import { useStreamLane } from "@/hooks/useStreamLane";
 import { StreamText } from "@/components/StreamText";
 import { useWords } from '@/hooks/useWords';
+import { createStreamItem } from "@/hooks/createStreamItem";
 
 
 
@@ -50,6 +51,22 @@ export default function WordListScreen() {
     runWord();
     //複数レーンになったときの処理
   }, [height]);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      if (active) return;
+      const w = pickRandomWord();
+      if (!w) return;
+
+      start(createStreamItem({
+        word: w.word,
+        laneIndex: 0,
+        durationMs: cfg.baseDurationMs,
+      }));
+    }, 1200);
+
+    return () => clearInterval(id);
+  }, [active, start, pickRandomWord, cfg.baseDurationMs])
 
 
   return (

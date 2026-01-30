@@ -8,7 +8,7 @@ export function useWords() {
         throw new Error("useWords must be used within a WordsProvider");
     }
 
-    const { wordList, reload, removeWord, clearAll } = ctx;
+    const { wordList, reload, removeWord, clearAll, addWord } = ctx;
 
 
     const pickRandomWord = useCallback((): WordItem | null => {
@@ -23,5 +23,5 @@ export function useWords() {
 
     //return ctx;
 
-    return { wordList, reload, removeWord, clearAll, pickRandomWord };
+    return { wordList, reload, removeWord, clearAll, pickRandomWord, addWord };
 }

@@ -29,9 +29,45 @@ export default function WordListScreen() {
     screenHeight: height,
   });
 
-  const laneX = cfg.lanePaddingLeft;
+
+  const lane0 = useStreamLane({ cfg, screenHeight: height, });  //レーン生成
+  const lane1 = useStreamLane({ cfg, screenHeight: height, });
+  const lane2 = useStreamLane({ cfg, screenHeight: height, });
+  const lane3 = useStreamLane({ cfg, screenHeight: height, });
+
+  const lanes = [lane0, lane1, lane2, lane3,];
+
+  const lanePickIndex = () => { //空いてるレーンをランダムに選ぶ
+    const free = lanes
+      .map((lane, i) => (lane.active ? -1 : i))
+      .filter(i => i !== -1);
+
+    if (free.length === 0) return null;
+
+    return free[Math.floor(Math.random() * free.length)];
+  }
+
+  const spawn = () => {
+    const w = pickRandomWord();
+    if (!w) return;
+
+    const laneIndex = lanePickIndex();
+    if (laneIndex === null) return;
+
+    lanes[laneIndex].start({
+      id: makePlayId(),
+      word: w.word,
+      laneIndex,
+      createdAt: Date.now(),
+      durationMs: cfg.baseDurationMs,
+    })
+  }
+
+
   const CommentWidth = width * cfg.maxwidthRatio;
 
+  /* あとで消す
+  const laneX = cfg.lanePaddingLeft;
   const runWord = (() => {
     const picked = pickRandomWord();
     if (!picked) return;
@@ -45,28 +81,34 @@ export default function WordListScreen() {
     }
     start(item);
   })
+  */
 
   useEffect(() => {
     //単一レーン処理
-    runWord();
+    //runWord();
     //複数レーンになったときの処理
+    spawn();
   }, [height]);
 
   useEffect(() => {
     const id = setInterval(() => {
-      if (active) return;
       const w = pickRandomWord();
       if (!w) return;
 
-      start(createStreamItem({
+      const laneIndex = lanePickIndex();
+      if (laneIndex === null) return;
+
+      lanes[laneIndex].start({
+        id: makePlayId(),
         word: w.word,
-        laneIndex: 0,
+        laneIndex,
+        createdAt: Date.now(),
         durationMs: cfg.baseDurationMs,
-      }));
-    }, 1200);
+      });
+    }, 1800);
 
     return () => clearInterval(id);
-  }, [active, start, pickRandomWord, cfg.baseDurationMs])
+  }, [pickRandomWord, cfg.baseDurationMs, lanes])
 
 
   return (
@@ -79,14 +121,20 @@ export default function WordListScreen() {
       </View>
 
       <View style={styles.absoluteFill} pointerEvents="none">
-        {active && (
-          <StreamText
-            text={active.word}
-            x={laneX}
-            width={CommentWidth}
-            y={y}
-            visible={true}
-          />
+
+        {lanes.map((lane, i) =>
+          lane.active ? (
+
+            <StreamText
+              key={lane.active.id}
+              text={lane.active?.word || ""}
+              x={cfg.lanePaddingLeft + i * cfg.laneGap}
+              width={CommentWidth}
+              y={lane.y}
+              visible={true}
+            />
+
+          ) : null
         )}
       </View>
 

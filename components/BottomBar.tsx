@@ -30,7 +30,9 @@ export function BottomBar() {
                             onPress={() => router.push(t.href)}
                             style={({ pressed }) => [styles.item, pressed && styles.pressed, active && styles.activeItem]}
                         >
+
                             {renderIcon(t.key, active)}
+
 
                             {active && <Text style={[styles.label, active && styles.activeLabel]}>{active && t.label}</Text>}
 
@@ -40,7 +42,7 @@ export function BottomBar() {
                 })}
 
             </View>
-        </View>
+        </View >
     );
 }
 
@@ -48,9 +50,9 @@ function renderIcon(key: string, active: boolean): JSX.Element {
 
     return (
         <View>
-            {key === "play" && <Play style={[styles.icon]} strokeWidth={active ? 4 : 2} />}
-            {key === "add" && <Plus style={[styles.icon]} strokeWidth={active ? 4 : 2} />}
-            {key === "list" && <List style={[styles.icon]} strokeWidth={active ? 4 : 2} />}
+            {key === "play" && <Play style={[styles.icon, active && styles.activeIcon]} strokeWidth={active ? 4 : 2} />}
+            {key === "add" && <Plus style={[styles.icon, active && styles.activeIcon]} strokeWidth={active ? 4 : 2} />}
+            {key === "list" && <List style={[styles.icon, active && styles.activeIcon]} strokeWidth={active ? 4 : 2} />}
         </View>
     )
 
@@ -74,8 +76,7 @@ function isActive(pathname: string | null, href: string) {
 const styles = StyleSheet.create({
     wrap: {
 
-        backgroundColor: "rgb(0, 0, 0)",
-        borderColor: "rgb(255, 255, 255)",
+        backgroundColor: Colors.BottomBar,
         paddingHorizontal: 0,
         paddingBottom: 0,
         paddingTop: 0,
@@ -91,5 +92,6 @@ const styles = StyleSheet.create({
     activeItem: { backgroundColor: "rgba(255, 255, 255, 0.05)" },
     label: { color: Colors.muted },
     activeLabel: { color: Colors.text, fontSize: 11, fontWeight: "700" },
-    icon: { color: Colors.muted, },
+    icon: { color: Colors.muted },
+    activeIcon: { color: Colors.text },
 });

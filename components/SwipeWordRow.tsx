@@ -49,7 +49,6 @@ function formatDate(iso: string) {
 const styles = StyleSheet.create({
     card: {
         backgroundColor: Colors.card,
-        borderColor: Colors.cardBorder,
         borderWidth: 1,
         borderRadius: 16,
         paddingVertical: 14,
@@ -58,14 +57,14 @@ const styles = StyleSheet.create({
         flexDirection: "column",
     },
     row: { flexDirection: "row", alignItems: "baseline", justifyContent: "space-between" },
-    word: { fontSize: 16, fontWeight: "600" },
-    date: { fontSize: 12, opacity: 0.7 },
-    note: { marginTop: 4, opacity: 0.7 },
+    word: { fontSize: 16, fontWeight: "600", color: Colors.text },
+    date: { fontSize: 12, opacity: 0.7, color: Colors.text },
+    note: { marginTop: 4, opacity: 0.7, color: Colors.text },
     deleteAction: {
         width: 88,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#e11d48",
+        backgroundColor: "#ce4663",
     },
     deleteText: { color: "white", fontWeight: "700" },
 });

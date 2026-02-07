@@ -110,10 +110,10 @@ export default function WordListScreen() {
     return () => clearInterval(id);
   }, [pickRandomWord, cfg.baseDurationMs, lanes])
 
-
+  //locations={[0, 0.26, 0.56, 1]}
   return (
 
-    <LinearGradient colors={[Colors.bgTop, Colors.bgMid, Colors.bgBottom]} style={styles.root}>
+    <LinearGradient colors={[Colors.bgTop, Colors.bgMid, Colors.bgBottom2, Colors.bgBottom]} locations={Colors.locations} style={styles.root}>
 
       <View style={styles.header}>
         <Text style={styles.title}>Play</Text>
@@ -147,7 +147,7 @@ export default function WordListScreen() {
 
 const styles = StyleSheet.create({
   root: { flex: 1, },
-  header: { paddingHorizontal: 18, paddingTop: 0, paddingBottom: 10 },
+  header: { paddingHorizontal: 18, paddingTop: 10, paddingBottom: 10 },
   title: { color: Colors.text, fontSize: 22, fontWeight: "800" },
   subtitle: { color: Colors.subtext, marginTop: 6 },
   listContent: { paddingHorizontal: 18, paddingTop: 6, paddingBottom: 8 },

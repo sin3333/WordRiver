@@ -58,7 +58,7 @@ export default function ListScreen() {
 
     return (
 
-        <LinearGradient colors={[Colors.bgTop, Colors.bgMid, Colors.bgBottom]} style={styles.root}>
+        <View style={styles.root}>
             <View style={styles.header}>
                 <Text style={styles.title}>検索</Text>
                 <Text style={styles.subtitle}>find a word in the current</Text>
@@ -83,25 +83,15 @@ export default function ListScreen() {
                 renderItem={renderItem}
             />
 
-            <Button //デバッグ用
-                title="ストレージ全削除（デバッグ用）"
-                onPress={async () => {
-                    await clearAll();
-                    console.warn("STORAGE CLEARED");
-                }}
-            />
-
-
-
-        </LinearGradient>
+        </View>
 
 
     );
 }
 
 const styles = StyleSheet.create({
-    root: { flex: 1 },
-    header: { paddingHorizontal: 18, paddingTop: 0, paddingBottom: 10 },
+    root: { flex: 1, backgroundColor: Colors.bgGeneral },
+    header: { paddingHorizontal: 18, paddingTop: 10, paddingBottom: 10 },
     title: { color: Colors.text, fontSize: 22, fontWeight: "800" },
     subtitle: { color: Colors.subtext, marginTop: 6 },
     searchBox: { paddingHorizontal: 18, paddingTop: 6, paddingBottom: 6 },
@@ -118,3 +108,15 @@ const styles = StyleSheet.create({
     listContent: { paddingHorizontal: 18, paddingTop: 8, paddingBottom: 8 },
     empty: { color: Colors.subtext, paddingHorizontal: 18, paddingTop: 18 },
 });
+
+
+/*
+            <Button 
+                title="ストレージ全削除（デバッグ用）"
+                onPress={async () => {
+                    await clearAll();
+                    console.warn("STORAGE CLEARED");
+                }}
+            />
+
+*/

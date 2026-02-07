@@ -67,7 +67,7 @@ export default function AddWordScreen() {
 
 const styles = StyleSheet.create({
     root: { flex: 1 },
-    header: { paddingHorizontal: 18, paddingTop: 0, paddingBottom: 10 },
+    header: { paddingHorizontal: 18, paddingTop: 10, paddingBottom: 10 },
     title: { color: Colors.text, fontSize: 22, fontWeight: "800" },
     subtitle: { color: Colors.subtext, marginTop: 6 },
     form: { paddingHorizontal: 18, paddingTop: 10, flex: 1 },

@@ -18,18 +18,18 @@ export const Colors = {
     bgBottom2: "#051420",
     bgBottom: "#000000",
 
-    bgGeneral: "#040b0f",
+    bgGeneral: "#03090c",
 
     BottomBar: "#04040f",
     border: "#394640",
 
     // もともと不透明
-    muted: "#1E4B3D",
+    mutedgreen: "#1E4B3D",
 
     locations: [0, 0.26, 0.56, 1],
 
     // rgba(255,255,255,0.08)
-    card: "#111c24",
+    card: "#151d27",
 
 
     // rgba(255,255,255,0.92)
@@ -40,6 +40,8 @@ export const Colors = {
 
     // rgba(255,255,255,0.92)
     accent: "#EBEBEB",
+
+    muted: "#757572",
 
 
 };

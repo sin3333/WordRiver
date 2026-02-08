@@ -92,8 +92,8 @@ const styles = StyleSheet.create({
     item: { flex: 1, paddingVertical: 14, alignItems: "center", justifyContent: 'center', },
     pressed: { opacity: 0.85 },
     activeItem: { backgroundColor: "rgba(255, 255, 255, 0.05)" },
-    label: { color: Colors.muted },
+    label: { color: Colors.mutedgreen },
     activeLabel: { color: Colors.text, fontSize: 11, fontWeight: "700" },
-    icon: { color: Colors.muted },
+    icon: { color: Colors.mutedgreen },
     activeIcon: { color: Colors.text },
 });

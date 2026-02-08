@@ -5,13 +5,14 @@ import { Tabs } from "expo-router";
 
 import { BottomBar } from "../../components/BottomBar";
 import { Colors } from "@/theme/colors";
+import { TopBar } from "@/components/TopBar";
 
 export default function TabsLayout() {
   // BottomBarは各画面の下に置く（カスタムUIしやすい）
   // Tabs自体はヘッダーやジェスチャーだけ提供してもらう
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-
+      <TopBar />
       <Tabs
         screenOptions={{
           headerShown: false,
@@ -24,6 +25,7 @@ export default function TabsLayout() {
         <Tabs.Screen name="add" />
         <Tabs.Screen name="list" />
       </Tabs>
+
 
 
       <BottomBar />

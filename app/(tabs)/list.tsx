@@ -59,10 +59,7 @@ export default function ListScreen() {
     return (
 
         <View style={styles.root}>
-            <View style={styles.header}>
-                <Text style={styles.title}>検索</Text>
-                <Text style={styles.subtitle}>find a word in the current</Text>
-            </View>
+
 
             <View style={styles.searchBox}>
                 <TextInput

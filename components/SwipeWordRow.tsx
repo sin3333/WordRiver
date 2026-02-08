@@ -49,7 +49,7 @@ function formatDate(iso: string) {
 const styles = StyleSheet.create({
     card: {
         backgroundColor: Colors.card,
-        borderWidth: 0.2,
+        borderWidth: 0,
         borderColor: Colors.border,
         borderRadius: 8,
         paddingVertical: 14,

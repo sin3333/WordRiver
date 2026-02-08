@@ -29,10 +29,7 @@ export default function AddWordScreen() {
     return (
 
         <View colors={[Colors.bgTop, Colors.bgMid, Colors.bgBottom]} style={styles.root}>
-            <View style={styles.header}>
-                <Text style={styles.title}>単語追加</Text>
-                <Text style={styles.subtitle}>drop a word into the river</Text>
-            </View>
+
 
             <View style={styles.form}>
                 <Text style={styles.label}>単語</Text>
@@ -74,7 +71,7 @@ const styles = StyleSheet.create({
     label: { color: Colors.text, fontWeight: "700", marginBottom: 8 },
     input: {
         borderRadius: 8,
-        borderWidth: 1,
+        borderWidth: 0,
         borderColor: Colors.border || Colors.cardBorder,
         backgroundColor: Colors.card,
         color: Colors.text,
@@ -82,7 +79,7 @@ const styles = StyleSheet.create({
         paddingVertical: 12,
         fontSize: 16,
     },
-    textarea: { minHeight: 120, textAlignVertical: "top" },
+    textarea: { minHeight: 200, textAlignVertical: "top" },
     saveButton: {
         marginTop: 18,
         textAlign: "center",

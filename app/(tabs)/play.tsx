@@ -115,10 +115,7 @@ export default function WordListScreen() {
 
     <LinearGradient colors={[Colors.bgTop, Colors.bgMid, Colors.bgBottom2, Colors.bgBottom]} locations={Colors.locations} style={styles.root}>
 
-      <View style={styles.header}>
-        <Text style={styles.title}>Play</Text>
-        <Text style={styles.subtitle}>words drifting in the deep</Text>
-      </View>
+
 
       <View style={styles.absoluteFill} pointerEvents="none">
 

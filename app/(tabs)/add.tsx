@@ -28,7 +28,7 @@ export default function AddWordScreen() {
 
     return (
 
-        <LinearGradient colors={[Colors.bgTop, Colors.bgMid, Colors.bgBottom]} style={styles.root}>
+        <View colors={[Colors.bgTop, Colors.bgMid, Colors.bgBottom]} style={styles.root}>
             <View style={styles.header}>
                 <Text style={styles.title}>単語追加</Text>
                 <Text style={styles.subtitle}>drop a word into the river</Text>
@@ -40,7 +40,7 @@ export default function AddWordScreen() {
                     value={word}
                     onChangeText={setWord}
                     placeholder="例：drift"
-                    placeholderTextColor={Colors.muted}
+                    placeholderTextColor={Colors.text}
                     style={styles.input}
                 />
 
@@ -49,7 +49,7 @@ export default function AddWordScreen() {
                     value={note}
                     onChangeText={setNote}
                     placeholder="意味 / 例文 / 補足"
-                    placeholderTextColor={Colors.muted}
+                    placeholderTextColor={Colors.text}
                     style={[styles.input, styles.textarea]}
                     multiline
                 />
@@ -60,23 +60,23 @@ export default function AddWordScreen() {
             </View>
 
 
-        </LinearGradient>
+        </View>
 
     );
 }
 
 const styles = StyleSheet.create({
-    root: { flex: 1 },
+    root: { flex: 1, backgroundColor: Colors.bgGeneral },
     header: { paddingHorizontal: 18, paddingTop: 10, paddingBottom: 10 },
     title: { color: Colors.text, fontSize: 22, fontWeight: "800" },
-    subtitle: { color: Colors.subtext, marginTop: 6 },
+    subtitle: { color: Colors.text, marginTop: 6 },
     form: { paddingHorizontal: 18, paddingTop: 10, flex: 1 },
-    label: { color: Colors.subtext, fontWeight: "700", marginBottom: 8 },
+    label: { color: Colors.text, fontWeight: "700", marginBottom: 8 },
     input: {
-        borderRadius: 14,
+        borderRadius: 8,
         borderWidth: 1,
-        borderColor: "rgba(255,255,255,0.12)",
-        backgroundColor: "rgba(255,255,255,0.06)",
+        borderColor: Colors.border || Colors.cardBorder,
+        backgroundColor: Colors.card,
         color: Colors.text,
         paddingHorizontal: 14,
         paddingVertical: 12,
@@ -86,10 +86,10 @@ const styles = StyleSheet.create({
     saveButton: {
         marginTop: 18,
         textAlign: "center",
-        color: "#0B2A4A",
-        backgroundColor: "rgba(255,255,255,0.92)",
+        color: Colors.bgGeneral,
+        backgroundColor: Colors.subtext,
         paddingVertical: 14,
-        borderRadius: 14,
+        borderRadius: 8,
         fontWeight: "900",
         overflow: "hidden",
     },

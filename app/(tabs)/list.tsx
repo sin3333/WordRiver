@@ -69,7 +69,7 @@ export default function ListScreen() {
                     value={q}
                     onChangeText={setQ}
                     placeholder="検索…"
-                    placeholderTextColor={Colors.muted}
+                    placeholderTextColor={Colors.text}
                     style={styles.input}
                 />
             </View>
@@ -93,20 +93,23 @@ const styles = StyleSheet.create({
     root: { flex: 1, backgroundColor: Colors.bgGeneral },
     header: { paddingHorizontal: 18, paddingTop: 10, paddingBottom: 10 },
     title: { color: Colors.text, fontSize: 22, fontWeight: "800" },
-    subtitle: { color: Colors.subtext, marginTop: 6 },
+    subtitle: { color: Colors.text, marginTop: 6 },
     searchBox: { paddingHorizontal: 18, paddingTop: 6, paddingBottom: 6 },
     input: {
         borderRadius: 14,
         borderWidth: 1,
-        borderColor: "rgba(255,255,255,0.12)",
-        backgroundColor: "rgba(255,255,255,0.06)",
+        borderColor: Colors.border || Colors.cardBorder,
+        backgroundColor: Colors.card,
         color: Colors.text,
         paddingHorizontal: 14,
         paddingVertical: 12,
         fontSize: 16,
+
+        borderWidth: 0.2,
+        borderColor: Colors.border
     },
     listContent: { paddingHorizontal: 18, paddingTop: 8, paddingBottom: 8 },
-    empty: { color: Colors.subtext, paddingHorizontal: 18, paddingTop: 18 },
+    empty: { color: Colors.text, paddingHorizontal: 18, paddingTop: 18 },
 });
 
 

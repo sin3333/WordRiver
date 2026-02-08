@@ -83,9 +83,11 @@ const styles = StyleSheet.create({
     },
     bar: {
         flexDirection: "row",
-        borderRadius: 8,
+        borderRadius: 0,
+        borderTopWidth: 0.2,
+        borderTopColor: Colors.border,
         overflow: "hidden",
-        height: 50,
+        height: 55,
     },
     item: { flex: 1, paddingVertical: 14, alignItems: "center", justifyContent: 'center', },
     pressed: { opacity: 0.85 },

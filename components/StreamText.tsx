@@ -1,3 +1,4 @@
+import { Colors } from '@/theme/colors';
 import React from 'react';
 import { Text, StyleSheet } from 'react-native';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
@@ -35,10 +36,11 @@ const styles = StyleSheet.create({
         paddingVertical: 8,
         paddingHorizontal: 10,
         borderRadius: 12,
-        backgroundColor: 'rgba(255, 255, 255, 0.15)',
+        //backgroundColor: 'rgba(255, 255, 255, 0.15)',
 
     },
     text: {
+        color: Colors.text,
         fontSize: 18
     },
 });

@@ -44,5 +44,5 @@ const styles = StyleSheet.create({
     row: { flexDirection: "row", alignItems: "baseline", justifyContent: "space-between" },
     word: { color: Colors.text, fontSize: 18, fontWeight: "700", letterSpacing: 0.2 },
     date: { color: Colors.muted, fontSize: 12 },
-    note: { color: Colors.subtext, fontSize: 13, lineHeight: 18 },
+    note: { color: Colors.text, fontSize: 13, lineHeight: 18 },
 });

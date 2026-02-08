@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   root: { flex: 1, },
   header: { paddingHorizontal: 18, paddingTop: 10, paddingBottom: 10 },
   title: { color: Colors.text, fontSize: 22, fontWeight: "800" },
-  subtitle: { color: Colors.subtext, marginTop: 6 },
+  subtitle: { color: Colors.text, marginTop: 6 },
   listContent: { paddingHorizontal: 18, paddingTop: 6, paddingBottom: 8 },
 
   absoluteFill: {

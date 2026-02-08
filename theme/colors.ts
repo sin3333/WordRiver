@@ -18,9 +18,10 @@ export const Colors = {
     bgBottom2: "#051420",
     bgBottom: "#000000",
 
-    bgGeneral: "#040A11",
+    bgGeneral: "#040b0f",
 
-    BottomBar: "#03030B",
+    BottomBar: "#04040f",
+    border: "#394640",
 
     // もともと不透明
     muted: "#1E4B3D",
@@ -28,14 +29,14 @@ export const Colors = {
     locations: [0, 0.26, 0.56, 1],
 
     // rgba(255,255,255,0.08)
-    card: "#0E1F2A",
+    card: "#111c24",
 
 
     // rgba(255,255,255,0.92)
-    text: "#D7D5CB",
+    text: "#c1c2b4",
 
     // rgba(255,255,255,0.70)
-    subtext: "#b2b3a4",
+    subtext: "#a2a395",
 
     // rgba(255,255,255,0.92)
     accent: "#EBEBEB",

@@ -1,11 +1,12 @@
 import React, { useMemo, useState, useCallback, useEffect } from "react";
-import { FlatList, StyleSheet, Text, TextInput, View, Button } from "react-native";
+import { FlatList, Pressable, StyleSheet, Text, TextInput, View, } from "react-native";
 import { useFocusEffect } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "../../theme/colors";
 import { WordCard } from "../../components/WordCard";
 import { SwipeWordRow } from "@/components/SwipeWordRow";
 import type { WordItem } from "../../types/word";
+import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useWords } from "../../hooks/useWords";
@@ -42,7 +43,10 @@ export default function ListScreen() {
 */
     const renderItem = useCallback(
         ({ item }: { item: WordItem }) => (
-            <SwipeWordRow item={item} onDelete={() => removeWord(item.id)} />
+            <Pressable onPress={() => router.push({ pathname: "/edit/[id]", params: { id: item.id } })}
+            >
+                <SwipeWordRow item={item} onDelete={() => removeWord(item.id)} />
+            </Pressable>
         ),
         [removeWord]
     );

@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { Alert, StyleSheet, Text, TextInput, View, Keyboard, Pressable } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
-import { Colors } from "../../theme/colors";
+import { Colors } from "@/theme/colors";
 
+import { useLocalSearchParams } from "expo-router";
 
 import { useWords } from "@/hooks/useWords";
 
-export default function AddWordScreen() {
+//export default function EditWordScreen() {
+const EditWordScreen = () => {
+
+    const { id } = useLocalSearchParams<{ id: string }>();
+
     const { addWord } = useWords();
     //const storage = useWords();
     const [word, setWord] = useState("");

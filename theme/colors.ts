@@ -18,25 +18,27 @@ export const Colors = {
     bgBottom2: "#051420",
     bgBottom: "#000000",
 
-    bgGeneral: "#03090c",
+    //bgGeneral: "#03090c",
+    bgGeneral: "#040A11",
 
     BottomBar: "#04040f",
     border: "#394640",
 
     // もともと不透明
-    mutedgreen: "#1E4B3D",
+    mutedgreen: "#266350",
 
     locations: [0, 0.26, 0.56, 1],
 
     // rgba(255,255,255,0.08)
-    card: "#151d27",
+    //card: "#202935",
+    card: "#0E1F2A",
 
 
     // rgba(255,255,255,0.92)
     text: "#c1c2b4",
 
     // rgba(255,255,255,0.70)
-    subtext: "#a2a395",
+    subtext: "#cecfbf",
 
     // rgba(255,255,255,0.92)
     accent: "#EBEBEB",

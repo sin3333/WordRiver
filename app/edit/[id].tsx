@@ -2,37 +2,40 @@ import React, { useState } from "react";
 import { Alert, StyleSheet, Text, TextInput, View, Keyboard, Pressable } from "react-native";
 import { Colors } from "@/theme/colors";
 
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 
 import { useWords } from "@/hooks/useWords";
+import { TopBar } from "@/components/TopBar";
 
-//export default function EditWordScreen() {
-const EditWordScreen = () => {
+export default function EditWordScreen() {
+    //const EditWordScreen = () => {
 
     const { id } = useLocalSearchParams<{ id: string }>();
 
-    const { addWord } = useWords();
-    //const storage = useWords();
-    const [word, setWord] = useState("");
-    const [note, setNote] = useState("");
+    const { wordList, editWord, removeWord } = useWords();
+
+    const target = wordList.find(w => w.id === id);
+
+    const [inputWord, setWord] = useState(target?.word || "");
+    const [inputNote, setNote] = useState(target?.note || "");
 
     const onSave = async () => {
+        await editWord({ id, word: inputWord, note: inputNote });
+        Alert.alert("編集", `「${inputWord}」を編集しました`);
+        router.back();
+    };
 
-        const w = word.trim();
-        if (!w) {
-            Alert.alert("入力", "単語を入力してね");
-            return;
-        }
-        await addWord({ word: w, note: note });
-        Alert.alert("保存", `「${w}」を保存`);
-        Keyboard.dismiss();
-        setWord("");
-        setNote("");
+    const onDelete = () => {
+        removeWord(id);
+        Alert.alert("削除", `「${target?.word}」を削除しました`);
+        router.back();
     };
 
     return (
 
         <Pressable onPress={Keyboard.dismiss} style={{ flex: 1 }}>
+
+            <TopBar />
 
             <View colors={[Colors.bgTop, Colors.bgMid, Colors.bgBottom]} style={styles.root}>
 
@@ -40,7 +43,7 @@ const EditWordScreen = () => {
                 <View style={styles.form}>
                     <Text style={styles.label}>単語</Text>
                     <TextInput
-                        value={word}
+                        value={inputWord}
                         onChangeText={setWord}
                         placeholder="例：drift"
                         placeholderTextColor={Colors.text}
@@ -49,7 +52,7 @@ const EditWordScreen = () => {
 
                     <Text style={[styles.label, { marginTop: 14 }]}>メモ</Text>
                     <TextInput
-                        value={note}
+                        value={inputNote}
                         onChangeText={setNote}
                         placeholder="意味 / 例文 / 補足"
                         placeholderTextColor={Colors.text}
@@ -58,7 +61,10 @@ const EditWordScreen = () => {
                     />
 
                     <Text onPress={onSave} style={styles.saveButton}>
-                        追加
+                        編集
+                    </Text>
+                    <Text onPress={onDelete} style={styles.saveButton}>
+                        削除
                     </Text>
                 </View>
 

@@ -11,6 +11,7 @@ type WordsContextValue = {
     removeWord: (id: string) => void;
     reload: () => Promise<void>;
     clearAll: () => Promise<void>;
+    editWord: (input: { id: string; word: string; note?: string }) => Promise<void>;
 };
 
 export const WordsContext = createContext<WordsContextValue | null>(null);
@@ -61,8 +62,20 @@ export function WordsProvider({ children }: { children: React.ReactNode }) {
         setWordList([]);
     }, [storage]);
 
+    const editWord = useCallback(async ({ id, word, note }: { id: string; word: string; note?: string }) => {
+        setWordList(prev => {
+            const next = prev.map(item =>
+                item.id === id
+                    ? { ...item, word: word.trim(), note: note?.trim() }
+                    : item
+            );
+            storage.save(next);
+            return next;
+        });
+    }, [storage]);
+
     return (
-        <WordsContext.Provider value={{ wordList, addWord, removeWord, reload, clearAll }}
+        <WordsContext.Provider value={{ wordList, addWord, removeWord, reload, clearAll, editWord }}
         >
             {children}
         </WordsContext.Provider>

@@ -45,47 +45,17 @@ export function useWordStorage() {
 
         console.log('Done.')
     };
-    /*
-        return { load, save, delete: remove, allDelete }
-                try {
-                    const value = await AsyncStorage.getItem(STORAGE_KEY);
-                    if (value !== null) {
-                        return JSON.parse(value) as WordItem[];
-                    }
-                    return [];
-                } catch (e) {
-                    console.log('読み込みエラー:', e);
-                    return
-                }
-            },
-    
-            save: async (items: WordItem[]): Promise<void> => {
-                try {
-                    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-                } catch (e) {
-                    console.log('保存エラー:', e);
-                }
-            },
-    
-            delete: async (id: string): Promise<void> => {
-                const storage = useWordStorage();
-                const current = await storage.load();
-                const updated = current.filter(item => item.id !== id);
-                await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-            },
-    
-            allDelete: async (): Promise<void> => {
-                try {
-                    await AsyncStorage.removeItem(STORAGE_KEY);
-                } catch (e) {
-                    console.log('削除エラー:', e);
-                }
-    
-                console.log('Done.')
-            },
-    
-        }*/
 
-    return { load, save, remove, allDelete }
+    const edit = async ({ id, word, note }: EditInput) => {
+        setWordList(prev =>
+            prev.map(item =>
+                item.id === id
+                    ? { ...item, word: word.trim(), note: note?.trim() }
+                    : item
+            )
+        );
+    };
+
+    return { load, save, remove, allDelete, edit }
 };
 

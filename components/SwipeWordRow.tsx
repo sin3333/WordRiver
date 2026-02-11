@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
         width: 88,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#ce4663",
+        backgroundColor: Colors.redAlert,
     },
     deleteText: { color: "white", fontWeight: "700" },
 });

@@ -1,16 +1,16 @@
 import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Colors } from "../theme/colors";
-import { canGoBack } from "expo-router/build/global-state/routing";
 import { router } from "expo-router";
+import { ChevronLeft } from "lucide-react-native"; //https://lucide.dev/guide/packages/lucide-react-native
 
 export function TopBar() {
     return (
         <View style={styles.wrap}>
             <View style={{ position: "absolute", left: 15 }}>
-                {canGoBack && (
+                {router.canGoBack() && (
                     <Pressable onPress={() => router.back()} hitSlop={10}>
-                        <Text style={{ color: Colors.text }}>{"<"}</Text>
+                        <ChevronLeft size={30} color={Colors.text} />
                     </Pressable>
                 )}
             </View>

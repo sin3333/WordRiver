@@ -63,7 +63,7 @@ export default function EditWordScreen() {
                     <Text onPress={onSave} style={styles.saveButton}>
                         編集
                     </Text>
-                    <Text onPress={onDelete} style={styles.saveButton}>
+                    <Text onPress={onDelete} style={styles.deleteButton}>
                         削除
                     </Text>
                 </View>
@@ -102,5 +102,16 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         fontWeight: "900",
         overflow: "hidden",
+    },
+    deleteButton: {
+        marginTop: 18,
+        textAlign: "center",
+        color: Colors.text,
+        backgroundColor: Colors.redAlert,
+        paddingVertical: 14,
+        borderRadius: 8,
+        fontWeight: "900",
+        overflow: "hidden",
+        justifyContent: "space-between",
     },
 });

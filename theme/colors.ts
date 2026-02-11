@@ -45,5 +45,7 @@ export const Colors = {
 
     muted: "#757572",
 
+    redAlert: "#d44362",
+
 
 };

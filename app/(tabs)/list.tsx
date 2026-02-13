@@ -22,10 +22,10 @@ const seed: WordItem[] = [ //後で消す
 
 
 export default function ListScreen() {
-    const { wordList, reload, removeWord, clearAll } = useWords();
+    const { store, reload, removeWord, clearAll } = useWords();
 
     useEffect(() => { //デバッグ用
-        console.log(wordList);
+        console.log(store.words);
     }, []);
 
 
@@ -77,7 +77,7 @@ export default function ListScreen() {
 
             <FlatList
                 contentContainerStyle={styles.listContent}
-                data={wordList}
+                data={store.words}
                 keyExtractor={(i) => i.id}
                 ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
                 ListEmptyComponent={<Text style={styles.empty}>見つからない</Text>}

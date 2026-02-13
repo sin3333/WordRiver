@@ -8,20 +8,46 @@ export function useWords() {
         throw new Error("useWords must be used within a WordsProvider");
     }
 
-    const { wordList, reload, removeWord, clearAll, addWord, editWord } = ctx;
+    const {
+        store,
+        addFolder,
+        renameFolder,
+        removeFolder,
+        setActiveFolderId,
+        addWord,
+        removeWord,
+        editWord,
+        moveWord,
+        reload,
+        clearAll,
+        visibleWords,
+        activeFolder,
+    } = ctx;
 
 
     const pickRandomWord = useCallback((): WordItem | null => {
-        if (wordList.length === 0) return null;
-        const i = Math.floor(Math.random() * wordList.length);
-        return wordList[i];
-    }, [wordList]);
+        if (visibleWords.length === 0) return null;
+        const i = Math.floor(Math.random() * visibleWords.length);
+        return visibleWords[i];
+    }, [visibleWords]);
 
 
 
 
-
-    //return ctx;
-
-    return { wordList, reload, removeWord, clearAll, pickRandomWord, addWord, editWord };
+    return {
+        store,
+        activeFolder,
+        visibleWords,
+        reload,
+        removeWord,
+        clearAll,
+        pickRandomWord,
+        addWord,
+        editWord,
+        moveWord,
+        addFolder,
+        renameFolder,
+        removeFolder,
+        setActiveFolderId
+    };
 }

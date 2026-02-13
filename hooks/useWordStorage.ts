@@ -46,16 +46,8 @@ export function useWordStorage() {
         console.log('Done.')
     };
 
-    const edit = async ({ id, word, note }: EditInput) => {
-        setWordList(prev =>
-            prev.map(item =>
-                item.id === id
-                    ? { ...item, word: word.trim(), note: note?.trim() }
-                    : item
-            )
-        );
-    };
 
-    return { load, save, remove, allDelete, edit }
+
+    return { load, save, remove, allDelete, }
 };
 

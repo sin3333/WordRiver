@@ -17,3 +17,6 @@ export type WordsStore = {
     words: WordItem[];
     activeFolderId: string;
 }
+
+export const DEFAULT_FOLDER_ID = 'default';
+export const ALL_FOLDER_ID = 'all';

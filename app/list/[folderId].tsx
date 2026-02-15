@@ -4,9 +4,9 @@ import { useFocusEffect } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "../../theme/colors";
 import { WordCard } from "../../components/WordCard";
-import { FolderCard } from "@/components/FolderCard";
-import type { Folder, WordItem } from "../../types/word";
-import { router } from "expo-router";
+import { SwipeWordRow } from "@/components/SwipeWordRow";
+import type { WordItem } from "../../types/word";
+import { router, useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useWords } from "../../hooks/useWords";
@@ -22,6 +22,10 @@ const seed: WordItem[] = [ //後で消す
 
 
 export default function ListScreen() {
+    const { folderId } = useLocalSearchParams<{ folderId: string }>();
+
+
+
     const { store, reload, removeWord, clearAll } = useWords();
 
     useEffect(() => { //デバッグ用
@@ -45,7 +49,7 @@ export default function ListScreen() {
         ({ item }: { item: WordItem }) => (
             <Pressable onPress={() => router.push({ pathname: "/edit/[id]", params: { id: item.id } })}
             >
-                <FolderCard item={item} onDelete={() => removeWord(item.id)} />
+                <SwipeWordRow item={item} onDelete={() => removeWord(item.id)} />
             </Pressable>
         ),
         [removeWord]
@@ -77,7 +81,7 @@ export default function ListScreen() {
 
             <FlatList
                 contentContainerStyle={styles.listContent}
-                data={store.folders}
+                data={store.words}
                 keyExtractor={(i) => i.id}
                 ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
                 ListEmptyComponent={<Text style={styles.empty}>見つからない</Text>}

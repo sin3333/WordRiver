@@ -12,9 +12,9 @@ export default function EditWordScreen() {
 
     const { id } = useLocalSearchParams<{ id: string }>();
 
-    const { wordList, editWord, removeWord } = useWords();
+    const { store, editWord, removeWord } = useWords();
 
-    const target = wordList.find(w => w.id === id);
+    const target = store.words.find(w => w.id === id);
 
     const [inputWord, setWord] = useState(target?.word || "");
     const [inputNote, setNote] = useState(target?.note || "");

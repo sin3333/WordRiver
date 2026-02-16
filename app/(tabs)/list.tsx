@@ -13,27 +13,23 @@ import { useWords } from "../../hooks/useWords";
 import { useWordStorage } from "../../hooks/useWordStorage";
 
 
-const seed: WordItem[] = [ //後で消す
-    { id: "1", word: "drift", note: "漂う", createdAt: new Date() },
-    { id: "2", word: "current", note: "潮流 / 流れ", createdAt: new Date(Date.now() - 86400000) },
-    { id: "3", word: "abyss", note: "深淵", createdAt: new Date(Date.now() - 86400000 * 2) },
-];
+//const seed: WordItem[] = [ //後で消す
+//
+//];
 
 
 
 export default function ListScreen() {
-    const { store, reload, removeWord, clearAll } = useWords();
+    const { store, reload, removeFolder, clearAll } = useWords();
 
     useEffect(() => { //デバッグ用
-        console.log(store.words);
+        console.log(store.folders);
     }, []);
 
 
     const [q, setQ] = useState("");
     const data = useMemo(() => {
-        const s = q.trim().toLowerCase();
-        if (!s) return seed;
-        return seed.filter((w) => w.word.toLowerCase().includes(s) || (w.note ?? "").toLowerCase().includes(s));
+        //
     }, [q]);
 
     /*const reload = useCallback(async () => {
@@ -42,13 +38,12 @@ export default function ListScreen() {
     }, [Storage]);
 */
     const renderItem = useCallback(
-        ({ item }: { item: WordItem }) => (
-            <Pressable onPress={() => router.push({ pathname: "/edit/[id]", params: { id: item.id } })}
-            >
-                <FolderCard item={item} onDelete={() => removeWord(item.id)} />
+        ({ item }: { item: Folder }) => (
+            <Pressable onPress={() => router.push({ pathname: "/list/[folderId]", params: { folderId: item.id } })}>
+                <FolderCard item={item} onDelete={() => removeFolder(item.id)} />
             </Pressable>
         ),
-        [removeWord]
+        [removeFolder]
     );
 
     useFocusEffect(
@@ -112,6 +107,8 @@ const styles = StyleSheet.create({
     listContent: { paddingHorizontal: 18, paddingTop: 8, paddingBottom: 8 },
     empty: { color: Colors.text, paddingHorizontal: 18, paddingTop: 18 },
 });
+
+
 
 
 /*

@@ -1,16 +1,24 @@
 import React, { useState } from "react";
 import { Alert, StyleSheet, Text, TextInput, View, Keyboard, Pressable } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "../../theme/colors";
+import { Picker } from "@react-native-picker/picker";
 
 
 import { useWords } from "@/hooks/useWords";
+import { FolderSelector } from "@/components/FolderSelector";
 
 export default function AddWordScreen() {
     const { addWord } = useWords();
     //const storage = useWords();
     const [word, setWord] = useState("");
     const [note, setNote] = useState("");
+
+    const [value, setValue] = useState("a");
+
+    const [folderId, setFolderId] = useState<string | null>(null);
+
+    //FolderSelectorからフォルダIDを受け取るためのstate
+    const [folderOpen, setFolderOpen] = useState(false);
 
     const onSave = async () => {
 
@@ -28,7 +36,7 @@ export default function AddWordScreen() {
 
     return (
 
-        <Pressable onPress={Keyboard.dismiss} style={{ flex: 1 }}>
+        <Pressable onPress={() => { Keyboard.dismiss(); setFolderOpen(false); }} style={{ flex: 1 }}>
 
             <View colors={[Colors.bgTop, Colors.bgMid, Colors.bgBottom]} style={styles.root}>
 
@@ -53,13 +61,22 @@ export default function AddWordScreen() {
                         multiline
                     />
 
-                    <Text onPress={onSave} style={styles.saveButton}>
-                        追加
-                    </Text>
+
+
+                    <View style={{ flexDirection: "row", justifyContent: "center", marginTop: 18 }} >
+
+                        <FolderSelector value={folderId} onChange={setFolderId} open={folderOpen} setOpen={setFolderOpen} />
+
+                        <Text onPress={onSave} style={styles.saveButton}>
+                            追加
+                        </Text>
+
+                    </View>
+
                 </View>
 
-
             </View>
+
         </Pressable>
 
     );

@@ -11,6 +11,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useWords } from "../../hooks/useWords";
 import { useWordStorage } from "../../hooks/useWordStorage";
+import { TopBar } from "@/components/TopBar";
 
 
 const seed: WordItem[] = [ //後で消す
@@ -22,14 +23,19 @@ const seed: WordItem[] = [ //後で消す
 
 
 export default function ListScreen() {
-    const { folderId } = useLocalSearchParams<{ folderId: string }>();
-
-
+    const { folderId: rawFolderId } = useLocalSearchParams<{ folderId: string }>();
+    const folderId = Array.isArray(rawFolderId) //URLクエリに複数値が入る可能性はほぼ無いが、一応配列だったら先頭を取る
+        ? rawFolderId[0]
+        : rawFolderId;
 
     const { store, reload, removeWord, clearAll } = useWords();
 
+    const words = useMemo(() => {
+        return store.words.filter(w => w.folderId === folderId);
+    }, [store.words, folderId]);
+
     useEffect(() => { //デバッグ用
-        console.log(store.words);
+        console.log(folderId, words);
     }, []);
 
 
@@ -68,6 +74,8 @@ export default function ListScreen() {
 
         <View style={styles.root}>
 
+            <TopBar />
+
 
             <View style={styles.searchBox}>
                 <TextInput
@@ -81,7 +89,7 @@ export default function ListScreen() {
 
             <FlatList
                 contentContainerStyle={styles.listContent}
-                data={store.words}
+                data={words}
                 keyExtractor={(i) => i.id}
                 ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
                 ListEmptyComponent={<Text style={styles.empty}>見つからない</Text>}

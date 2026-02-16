@@ -12,7 +12,7 @@ export default function TabsLayout() {
   // Tabs自体はヘッダーやジェスチャーだけ提供してもらう
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <TopBar />
+
       <Tabs
         screenOptions={{
           headerShown: false,

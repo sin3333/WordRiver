@@ -1,16 +1,16 @@
-import React, { useMemo, useEffect } from "react";
-import { FlatList, StyleSheet, Text, View, useWindowDimensions } from "react-native";
+import React, { useEffect } from "react";
+import { StyleSheet, Text, View, useWindowDimensions } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "../../theme/colors";
-import { WordCard } from "../../components/WordCard";
-import type { WordItem } from "../../types/word";
+
 
 import { Default_stream_config } from '@/config/streamConfig'
-import { StreamItem } from "@/types/streamItemTypes"
+
 import { useStreamLane } from "@/hooks/useStreamLane";
 import { StreamText } from "@/components/StreamText";
 import { useWords } from '@/hooks/useWords';
-import { createStreamItem } from "@/hooks/createStreamItem";
+import { TopBar } from "@/components/TopBar";
+
 
 
 
@@ -23,6 +23,10 @@ export default function WordListScreen() {
   const cfg = Default_stream_config;
 
   const { pickRandomWord } = useWords();
+
+  //トップバーのフォルダ名表示用
+  const { activeFolder } = useWords();
+  const [folderModalOpen, setFolderModalOpen] = React.useState(false);
 
   const { y, active, start } = useStreamLane({
     cfg,
@@ -43,6 +47,7 @@ export default function WordListScreen() {
       .filter(i => i !== -1);
 
     if (free.length === 0) return null;
+
 
     return free[Math.floor(Math.random() * free.length)];
   }
@@ -66,22 +71,7 @@ export default function WordListScreen() {
 
   const CommentWidth = width * cfg.maxwidthRatio;
 
-  /* あとで消す
-  const laneX = cfg.lanePaddingLeft;
-  const runWord = (() => {
-    const picked = pickRandomWord();
-    if (!picked) return;
 
-    const item: StreamItem = {
-      id: makePlayId(),
-      word: picked.word,
-      laneIndex: 0,
-      createdAt: Date.now(),
-      durationMs: cfg.baseDurationMs,
-    }
-    start(item);
-  })
-  */
 
   useEffect(() => {
     //単一レーン処理
@@ -113,8 +103,15 @@ export default function WordListScreen() {
   //locations={[0, 0.26, 0.56, 1]}
   return (
 
+
+
     <LinearGradient colors={[Colors.bgTop, Colors.bgMid, Colors.bgBottom2, Colors.bgBottom]} locations={Colors.locations} style={styles.root}>
 
+      <TopBar
+        folderName={activeFolder?.name ?? "未分類"}
+        onPressFolder={() => setFolderModalOpen(true)}
+        showBack={false}
+      />
 
 
       <View style={styles.absoluteFill} pointerEvents="none">

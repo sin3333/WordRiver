@@ -18,7 +18,7 @@ const ADD_NEW = "_ADD_NEW_";
 export function FolderSelector({ value, onChange, open, setOpen }: Props) {
     const { store, addFolder } = useWords();
 
-    //const [open, setOpen] = useState(false);
+
 
     //ライブラリの都合で、選択肢の配列はstateで持つ必要がある
     const [items, setItems] = useState<{ label: string; value: string }[]>([]);

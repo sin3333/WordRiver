@@ -11,6 +11,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useWords } from "../../hooks/useWords";
 import { useWordStorage } from "../../hooks/useWordStorage";
+import { TopBar } from "@/components/TopBar";
 
 
 //const seed: WordItem[] = [ //後で消す
@@ -59,6 +60,9 @@ export default function ListScreen() {
 
         <View style={styles.root}>
 
+            <TopBar
+                showBack={false}
+            />
 
             <View style={styles.searchBox}>
                 <TextInput

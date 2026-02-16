@@ -6,6 +6,7 @@ import { Picker } from "@react-native-picker/picker";
 
 import { useWords } from "@/hooks/useWords";
 import { FolderSelector } from "@/components/FolderSelector";
+import { TopBar } from "@/components/TopBar";
 
 export default function AddWordScreen() {
     const { addWord } = useWords();
@@ -17,7 +18,7 @@ export default function AddWordScreen() {
 
     const [folderId, setFolderId] = useState<string | null>(null);
 
-    //FolderSelectorからフォルダIDを受け取るためのstate
+    //FolderSelectorにドロップダウンメニューオープンのonoffを渡すためのstate。selectorがわでもonoff管理で使う。
     const [folderOpen, setFolderOpen] = useState(false);
 
     const onSave = async () => {
@@ -27,7 +28,7 @@ export default function AddWordScreen() {
             Alert.alert("入力", "単語を入力してね");
             return;
         }
-        await addWord({ word: w, note: note });
+        await addWord({ word: w, note: note, folderId: folderId });
         Alert.alert("保存", `「${w}」を保存`);
         Keyboard.dismiss();
         setWord("");
@@ -37,6 +38,9 @@ export default function AddWordScreen() {
     return (
 
         <Pressable onPress={() => { Keyboard.dismiss(); setFolderOpen(false); }} style={{ flex: 1 }}>
+            <TopBar
+                showBack={false}
+            />
 
             <View colors={[Colors.bgTop, Colors.bgMid, Colors.bgBottom]} style={styles.root}>
 

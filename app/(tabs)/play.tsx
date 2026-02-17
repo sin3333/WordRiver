@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { StyleSheet, Text, View, useWindowDimensions } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "../../theme/colors";
@@ -14,6 +14,7 @@ import { TopBar } from "@/components/TopBar";
 
 
 
+
 function makePlayId() {
   return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 };
@@ -25,8 +26,11 @@ export default function WordListScreen() {
   const { pickRandomWord } = useWords();
 
   //トップバーのフォルダ名表示用
-  const { activeFolder } = useWords();
-  const [folderModalOpen, setFolderModalOpen] = React.useState(false);
+  const { activeFolder, store } = useWords();
+  const [sheetOpen, setSheetOpen] = React.useState(false);
+
+
+
 
   const { y, active, start } = useStreamLane({
     cfg,
@@ -109,7 +113,7 @@ export default function WordListScreen() {
 
       <TopBar
         folderName={activeFolder?.name ?? "未分類"}
-        onPressFolder={() => setFolderModalOpen(true)}
+        onPressFolder={() => setSheetOpen(true)}
         showBack={false}
       />
 

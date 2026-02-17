@@ -1,4 +1,4 @@
-import { useCallback, useContext } from "react";
+import { useCallback, useContext, useMemo } from "react";
 import { WordsContext } from "../context/WordContext";
 import { WordItem } from "@/types/word";
 
@@ -25,11 +25,14 @@ export function useWords() {
     } = ctx;
 
 
+
+
     const pickRandomWord = useCallback((): WordItem | null => {
         if (visibleWords.length === 0) return null;
         const i = Math.floor(Math.random() * visibleWords.length);
         return visibleWords[i];
     }, [visibleWords]);
+
 
 
 

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useCallback, useState, use } from "react";
+import React, { createContext, useContext, useEffect, useCallback, useState, use, useMemo } from "react";
 import { WordItem, WordsStore, Folder } from "../types/word";
 import { ALL_FOLDER_ID, DEFAULT_FOLDER_ID } from "../types/word";
 import { useWordStorage } from "../hooks/useWordStorage";
@@ -179,10 +179,10 @@ export function WordsProvider({ children }: { children: React.ReactNode }) {
         ? null
         : store.folders.find(f => f.id === store.activeFolderId) || null;
 
-    const visibleWords = store.activeFolderId === ALL_FOLDER_ID
-        ? store.words
-        : store.words.filter(w => w.folderId === store.activeFolderId);
-
+    const visibleWords = useMemo(() => {
+        if (!store.activeFolderId) return store.words;
+        return store.words.filter(w => w.folderId === store.activeFolderId);
+    }, [store.words, store.activeFolderId]);
 
     //return
 

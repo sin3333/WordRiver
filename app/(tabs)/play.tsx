@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { use, useCallback, useEffect, useMemo, useRef } from "react";
 import { StyleSheet, Text, View, useWindowDimensions } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "../../theme/colors";
@@ -11,6 +11,7 @@ import { StreamText } from "@/components/StreamText";
 import { useWords } from '@/hooks/useWords';
 import { TopBar } from "@/components/TopBar";
 import { FolderPickerSheet } from "@/components/FolderPickerSheet";
+import { WordItem } from "@/types/word";
 
 
 
@@ -21,6 +22,7 @@ function makePlayId() {
 };
 
 export default function WordListScreen() {
+
   const { width, height } = useWindowDimensions();
   const cfg = Default_stream_config;
 
@@ -44,9 +46,10 @@ export default function WordListScreen() {
   const lane2 = useStreamLane({ cfg, screenHeight: height, });
   const lane3 = useStreamLane({ cfg, screenHeight: height, });
 
-  const lanes = [lane0, lane1, lane2, lane3,];
 
-  const lanePickIndex = () => { //空いてるレーンをランダムに選ぶ
+  const lanes = useMemo(() => [lane0, lane1, lane2, lane3], [lane0, lane1, lane2, lane3]);
+
+  const lanePickIndex = useCallback(() => { //空いてるレーンをランダムに選ぶ
     const free = lanes
       .map((lane, i) => (lane.active ? -1 : i))
       .filter(i => i !== -1);
@@ -58,7 +61,7 @@ export default function WordListScreen() {
 
 
 
-  };
+  }, [lanes]);
 
   const spawn = () => {
 
@@ -77,10 +80,47 @@ export default function WordListScreen() {
     })
   }
 
+  //WordRefを使う
+
+  const visibleWordsRef = useRef<WordItem[]>([]);
+  useEffect(() => {
+    visibleWordsRef.current = visibleWords;
+  }, [visibleWords]);
+
+  const spawnOne = useCallback(() => {
+    const list = visibleWordsRef.current;
+    //console.log("spawnOne", list.length);
+    if (list.length === 0) return;
+
+    const laneIndex = lanePickIndex();
+    if (laneIndex === null) return;
+
+    const item = list[Math.floor(Math.random() * list.length)];
+    //console.log("spawnOne item", item.word);
+
+    lanes[laneIndex].start({
+      id: makePlayId(),
+      word: item.word,
+      laneIndex,
+      createdAt: Date.now(),
+      durationMs: cfg.baseDurationMs,
+    });
+
+
+  }, [lanes, lanePickIndex]);
 
 
 
   const CommentWidth = width * cfg.maxwidthRatio;
+
+
+  useEffect(() => {
+    const t = setInterval(() => {
+      spawnOne();
+    }, 1500);
+
+    return () => clearInterval(t);
+  }, [spawnOne]);
 
 
 
@@ -137,7 +177,7 @@ export default function WordListScreen() {
             lane.active ? (
 
               <StreamText
-                key={lane.active.id}
+                key={`lane-${i}`}
                 text={lane.active?.word || ""}
                 x={cfg.lanePaddingLeft + i * cfg.laneGap}
                 width={CommentWidth}

@@ -10,6 +10,7 @@ import { useStreamLane } from "@/hooks/useStreamLane";
 import { StreamText } from "@/components/StreamText";
 import { useWords } from '@/hooks/useWords';
 import { TopBar } from "@/components/TopBar";
+import { FolderPickerSheet } from "@/components/FolderPickerSheet";
 
 
 
@@ -26,7 +27,7 @@ export default function WordListScreen() {
   const { pickRandomWord } = useWords();
 
   //トップバーのフォルダ名表示用
-  const { activeFolder, store } = useWords();
+  const { activeFolder, store, visibleWords } = useWords();
   const [sheetOpen, setSheetOpen] = React.useState(false);
 
 
@@ -54,9 +55,13 @@ export default function WordListScreen() {
 
 
     return free[Math.floor(Math.random() * free.length)];
-  }
+
+
+
+  };
 
   const spawn = () => {
+
     const w = pickRandomWord();
     if (!w) return;
 
@@ -73,16 +78,19 @@ export default function WordListScreen() {
   }
 
 
+
+
   const CommentWidth = width * cfg.maxwidthRatio;
 
 
 
   useEffect(() => {
+    //if (visibleWords.length === 0) return;
     //単一レーン処理
     //runWord();
     //複数レーンになったときの処理
     spawn();
-  }, [height]);
+  }, [height, visibleWords.length]);
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -104,13 +112,13 @@ export default function WordListScreen() {
     return () => clearInterval(id);
   }, [pickRandomWord, cfg.baseDurationMs, lanes])
 
+
+
   //locations={[0, 0.26, 0.56, 1]}
   return (
 
 
-
-    <LinearGradient colors={[Colors.bgTop, Colors.bgMid, Colors.bgBottom2, Colors.bgBottom]} locations={Colors.locations} style={styles.root}>
-
+    <>
       <TopBar
         folderName={activeFolder?.name ?? "未分類"}
         onPressFolder={() => setSheetOpen(true)}
@@ -118,27 +126,36 @@ export default function WordListScreen() {
       />
 
 
-      <View style={styles.absoluteFill} pointerEvents="none">
-
-        {lanes.map((lane, i) =>
-          lane.active ? (
-
-            <StreamText
-              key={lane.active.id}
-              text={lane.active?.word || ""}
-              x={cfg.lanePaddingLeft + i * cfg.laneGap}
-              width={CommentWidth}
-              y={lane.y}
-              visible={true}
-            />
-
-          ) : null
-        )}
-      </View>
+      <LinearGradient colors={[Colors.bgTop, Colors.bgMid, Colors.bgBottom2, Colors.bgBottom]} locations={Colors.locations} style={styles.root}>
 
 
 
-    </LinearGradient>
+
+        <View style={styles.absoluteFill} pointerEvents="none">
+
+          {lanes.map((lane, i) =>
+            lane.active ? (
+
+              <StreamText
+                key={lane.active.id}
+                text={lane.active?.word || ""}
+                x={cfg.lanePaddingLeft + i * cfg.laneGap}
+                width={CommentWidth}
+                y={lane.y}
+                visible={true}
+              />
+
+            ) : null
+          )}
+        </View>
+
+
+        <FolderPickerSheet
+          visible={sheetOpen}
+          onClose={() => setSheetOpen(false)}
+        />
+      </LinearGradient>
+    </>
 
   );
 }

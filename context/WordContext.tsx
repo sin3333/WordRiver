@@ -180,7 +180,7 @@ export function WordsProvider({ children }: { children: React.ReactNode }) {
         : store.folders.find(f => f.id === store.activeFolderId) || null;
 
     const visibleWords = useMemo(() => {
-        if (!store.activeFolderId) return store.words;
+        if (!store.activeFolderId || store.activeFolderId === ALL_FOLDER_ID) return store.words;
         return store.words.filter(w => w.folderId === store.activeFolderId);
     }, [store.words, store.activeFolderId]);
 
@@ -208,6 +208,8 @@ export function WordsProvider({ children }: { children: React.ReactNode }) {
             {children}
         </WordsContext.Provider>
     )
+
+
 
 
 }

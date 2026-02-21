@@ -32,7 +32,7 @@ export function useStreamLane({ cfg, screenHeight }: Params) {
 
             }
         );
-    }, [cfg.baseDurationMs, cfg.fromOffsetY, cfg.toOffsetY, screenHeight, y]);
+    }, [cfg.fromOffsetY, cfg.toOffsetY, screenHeight, y]);
 
     const api = useMemo(() => ({ y, active, start, setActive }), [y, active, start]); //ここでこの関数の再計算を防ぐ
 

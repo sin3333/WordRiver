@@ -17,6 +17,7 @@ export default function TabsLayout() {
         screenOptions={{
           headerShown: false,
           tabBarStyle: { display: "none" },
+          freezeOnBlur: true,
 
 
         }}

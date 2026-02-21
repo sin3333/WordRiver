@@ -42,9 +42,7 @@ export function WordsProvider({ children }: { children: React.ReactNode }) {
     const [store, setStore] = useState<WordsStore>(initialStore);
     //const [wordList, setWordList] = useState<WordItem[]>([]);
 
-    useEffect(() => {
-        void reload();
-    }, []);
+
 
     const reload = useCallback(async () => {
         const loaded = await storage.load();
@@ -55,7 +53,7 @@ export function WordsProvider({ children }: { children: React.ReactNode }) {
         //旧データ対応：folderIdが無い単語は未分類へ
         const normalized: WordsStore = {
             folders: loaded.folders?.length ? loaded.folders : initialStore.folders,
-            words: loaded.words ?? [].map(w => ({
+            words: (loaded.words ?? []).map(w => ({
                 ...w,
                 folderId: w.folderId ?? DEFAULT_FOLDER_ID,
             })),
@@ -186,24 +184,40 @@ export function WordsProvider({ children }: { children: React.ReactNode }) {
 
     //return
 
+    const value = useMemo(() => ({
+        store,
+        addFolder,
+        renameFolder,
+        removeFolder,
+        setActiveFolderId,
+        addWord,
+        removeWord,
+        editWord,
+        moveWord,
+        reload,
+        clearAll,
+        visibleWords,
+        activeFolder,
+    }), [
+        store,
+        addFolder,
+        renameFolder,
+        removeFolder,
+        setActiveFolderId,
+        addWord,
+        removeWord,
+        editWord,
+        moveWord,
+        reload,
+        clearAll,
+        visibleWords,
+        activeFolder,
+    ]);
+
 
     return (
         <WordsContext.Provider
-            value={{
-                store,
-                addFolder,
-                renameFolder,
-                removeFolder,
-                setActiveFolderId,
-                addWord,
-                removeWord,
-                editWord,
-                moveWord,
-                reload,
-                clearAll,
-                visibleWords,
-                activeFolder,
-            }}
+            value={value}
         >
             {children}
         </WordsContext.Provider>

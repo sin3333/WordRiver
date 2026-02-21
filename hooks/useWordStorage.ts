@@ -48,6 +48,11 @@ export function useWordStorage() {
 
 
 
-    return { load, save, remove, allDelete, }
+    return useMemo(() => ({
+        load,
+        save,
+        remove,
+        allDelete
+    }), [load, save, remove, allDelete]);
 };
 

@@ -3,6 +3,7 @@ import { WordsContext } from "../context/WordContext";
 import { WordItem } from "@/types/word";
 
 export function useWords() {
+    //console.log("[WordsProvider render]");
     const ctx = useContext(WordsContext);
     if (!ctx) {
         throw new Error("useWords must be used within a WordsProvider");

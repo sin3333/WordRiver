@@ -23,6 +23,11 @@ function makePlayId() {
 
 export default function WordListScreen() {
 
+  //下3行。デバッグ用、レンダー数カウント。console.log解放でカウント
+  const renderCount = useRef(0);
+  renderCount.current += 1;
+  //console.log("PLAY render", renderCount.current);
+
   const { width, height } = useWindowDimensions();
   const cfg = Default_stream_config;
 

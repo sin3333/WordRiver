@@ -32,11 +32,11 @@ export function StreamText({ text, x, width, y, visible }: Props) {
 const styles = StyleSheet.create({
     comment: {
         position: 'absolute',
-        bottom: 0,
+        top: 0,
         paddingVertical: 8,
         paddingHorizontal: 10,
         borderRadius: 12,
-        //backgroundColor: 'rgba(255, 255, 255, 0.15)',
+
 
     },
     text: {

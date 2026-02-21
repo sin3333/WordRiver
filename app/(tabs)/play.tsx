@@ -1,7 +1,8 @@
-import React, { use, useCallback, useEffect, useMemo, useRef } from "react";
+import React, { use, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { StyleSheet, Text, View, useWindowDimensions } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "../../theme/colors";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 
 import { Default_stream_config } from '@/config/streamConfig'
@@ -37,7 +38,7 @@ export default function WordListScreen() {
   const { activeFolder, store, visibleWords } = useWords();
   const [sheetOpen, setSheetOpen] = React.useState(false);
 
-
+  //トップバーの高さ取得
 
 
   const { y, active, start } = useStreamLane({
@@ -46,10 +47,10 @@ export default function WordListScreen() {
   });
 
 
-  const lane0 = useStreamLane({ cfg, screenHeight: height, });  //レーン生成
-  const lane1 = useStreamLane({ cfg, screenHeight: height, });
-  const lane2 = useStreamLane({ cfg, screenHeight: height, });
-  const lane3 = useStreamLane({ cfg, screenHeight: height, });
+  const lane0 = useStreamLane({ cfg, screenHeight: height });  //レーン生成
+  const lane1 = useStreamLane({ cfg, screenHeight: height });
+  const lane2 = useStreamLane({ cfg, screenHeight: height });
+  const lane3 = useStreamLane({ cfg, screenHeight: height });
 
 
   const lanes = useMemo(() => [lane0, lane1, lane2, lane3], [lane0, lane1, lane2, lane3]);
@@ -171,6 +172,7 @@ export default function WordListScreen() {
       />
 
 
+
       <LinearGradient colors={[Colors.bgTop, Colors.bgMid, Colors.bgBottom2, Colors.bgBottom]} locations={Colors.locations} style={styles.root}>
 
 
@@ -213,6 +215,8 @@ const styles = StyleSheet.create({
   listContent: { paddingHorizontal: 18, paddingTop: 6, paddingBottom: 8 },
 
   absoluteFill: {
+    position: 'absolute',
+    overflow: "hidden",
     top: 0,
     right: 0,
     bottom: 0,

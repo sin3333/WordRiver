@@ -67,13 +67,15 @@ export default function AddWordScreen() {
 
 
 
-                    <View style={{ flexDirection: "row", justifyContent: "center", marginTop: 18 }} >
+                    <View style={styles.row} >
 
-                        <FolderSelector value={folderId} onChange={setFolderId} open={folderOpen} setOpen={setFolderOpen} />
+                        <View style={styles.rowLeft}>
+                            <FolderSelector value={folderId} onChange={setFolderId} open={folderOpen} setOpen={setFolderOpen} />
+                        </View>
 
-                        <Text onPress={onSave} style={styles.saveButton}>
-                            追加
-                        </Text>
+                        <Pressable onPress={onSave} style={styles.rowRight}>
+                            <Text style={styles.saveButtonText}>追加</Text>
+                        </Pressable>
 
                     </View>
 
@@ -113,5 +115,31 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         fontWeight: "900",
         overflow: "hidden",
+    },
+
+    row: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginTop: 18,
+        gap: 12, // RN 0.71+ ならOK。ダメなら下に代替書く
+    },
+
+    rowLeft: {
+        flex: 1, // FolderSelectorを左側で伸ばす
+    },
+
+    rowRight: {
+        minWidth: 110,
+        paddingVertical: 14,
+        paddingHorizontal: 16,
+        borderRadius: 8,
+        backgroundColor: Colors.subtext,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+
+    saveButtonText: {
+        color: Colors.bgGeneral,
+        fontWeight: "900",
     },
 });

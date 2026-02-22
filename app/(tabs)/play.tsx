@@ -1,7 +1,7 @@
 import React, { use, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { StyleSheet, Text, View, useWindowDimensions } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { Colors } from "../../theme/colors";
+import { Colors } from "@/theme/colors";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 
@@ -13,6 +13,7 @@ import { useWords } from '@/hooks/useWords';
 import { TopBar } from "@/components/TopBar";
 import { FolderPickerSheet } from "@/components/FolderPickerSheet";
 import { WordItem } from "@/types/word";
+import { WordDetailModal } from "@/components/WordModalDetail";
 
 
 
@@ -24,10 +25,7 @@ function makePlayId() {
 
 export default function WordListScreen() {
 
-  //下3行。デバッグ用、レンダー数カウント。console.log解放でカウント
-  const renderCount = useRef(0);
-  renderCount.current += 1;
-  //console.log("PLAY render", renderCount.current);
+
 
   const { width, height } = useWindowDimensions();
   const cfg = Default_stream_config;
@@ -38,7 +36,8 @@ export default function WordListScreen() {
   const { activeFolder, store, visibleWords } = useWords();
   const [sheetOpen, setSheetOpen] = React.useState(false);
 
-  //トップバーの高さ取得
+  const [selected, setSelected] = useState<WordItem | null>(null); //ワードをタップして詳細Modalを表示するスイッチにもなっている。
+
 
 
   const { y, active, start } = useStreamLane({
@@ -69,22 +68,7 @@ export default function WordListScreen() {
 
   }, [lanes]);
 
-  const spawn = () => {
 
-    const w = pickRandomWord();
-    if (!w) return;
-
-    const laneIndex = lanePickIndex();
-    if (laneIndex === null) return;
-
-    lanes[laneIndex].start({
-      id: makePlayId(),
-      word: w.word,
-      laneIndex,
-      createdAt: Date.now(),
-      durationMs: cfg.baseDurationMs,
-    })
-  }
 
   //WordRefを使う
 
@@ -106,6 +90,7 @@ export default function WordListScreen() {
 
     lanes[laneIndex].start({
       id: makePlayId(),
+      wordItemId: item.id,
       word: item.word,
       laneIndex,
       createdAt: Date.now(),
@@ -135,28 +120,8 @@ export default function WordListScreen() {
     //単一レーン処理
     //runWord();
     //複数レーンになったときの処理
-    spawn();
+    spawnOne();
   }, [height, visibleWords.length]);
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      const w = pickRandomWord();
-      if (!w) return;
-
-      const laneIndex = lanePickIndex();
-      if (laneIndex === null) return;
-
-      lanes[laneIndex].start({
-        id: makePlayId(),
-        word: w.word,
-        laneIndex,
-        createdAt: Date.now(),
-        durationMs: cfg.baseDurationMs,
-      });
-    }, 1800);
-
-    return () => clearInterval(id);
-  }, [pickRandomWord, cfg.baseDurationMs, lanes])
 
 
 
@@ -173,12 +138,12 @@ export default function WordListScreen() {
 
 
 
-      <LinearGradient colors={[Colors.bgTop, Colors.bgMid, Colors.bgBottom2, Colors.bgBottom]} locations={Colors.locations} style={styles.root}>
+      <LinearGradient colors={[Colors.bgTop, Colors.bgMid, Colors.bgBottom2, Colors.bgBottom]} locations={Colors.locations} style={styles.root} >
 
 
 
 
-        <View style={styles.absoluteFill} pointerEvents="none">
+        <View style={styles.absoluteFill}>
 
           {lanes.map((lane, i) =>
             lane.active ? (
@@ -190,11 +155,23 @@ export default function WordListScreen() {
                 width={CommentWidth}
                 y={lane.y}
                 visible={true}
+                onPress={() => {
+                  if (!lane.active) return;
+                  const wordItem = store.words.find(w => w.id === lane.active?.wordItemId);
+                  if (wordItem) setSelected(wordItem);
+                }}
               />
 
             ) : null
           )}
         </View>
+
+        <WordDetailModal
+          visible={selected !== null}
+          wordText={selected?.word ?? ""}
+          wordNote={selected?.note ?? ""}
+          onClose={() => setSelected(null)}
+        />
 
 
         <FolderPickerSheet

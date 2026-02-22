@@ -1,6 +1,6 @@
 import { Colors } from '@/theme/colors';
-import React from 'react';
-import { Text, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { Text, StyleSheet, Pressable, Modal } from 'react-native';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import type { SharedValue } from 'react-native-reanimated';
 
@@ -10,21 +10,30 @@ type Props = {
     width: number;
     y: SharedValue<number>;
     visible: boolean;
+    onPress?: () => void;
 };
 
-export function StreamText({ text, x, width, y, visible }: Props) {
+
+
+export function StreamText({ text, x, width, y, visible, onPress }: Props) {
     const animatedStyle = useAnimatedStyle(() => ({
         transform: [{ translateY: y.value }],
     }));
 
+
+
     if (!visible) return null;
 
     return (
+
         <Animated.View style={[styles.comment, { left: x, width }, animatedStyle]} >
-            <Text numberOfLines={1} ellipsizeMode="tail" style={styles.text} >
-                {text}
-            </Text>
-        </Animated.View>
+            <Pressable onPress={onPress} hitSlop={18}>
+                <Text numberOfLines={1} ellipsizeMode="tail" style={styles.text} >
+                    {text}
+                </Text>
+            </Pressable >
+        </Animated.View >
+
     );
 }
 

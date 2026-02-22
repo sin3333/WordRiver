@@ -1,7 +1,7 @@
 export type StreamItem = {
     id: string;
+    wordItemId: string; //wordItemのID
     word: string;
-
     laneIndex: number;
     createdAt: number;
     durationMs: number;

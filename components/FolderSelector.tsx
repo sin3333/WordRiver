@@ -3,6 +3,7 @@ import { Modal, Pressable, StyleSheet, Text, TextInput, View } from "react-nativ
 import DropDownPicker from "react-native-dropdown-picker";
 import { Colors } from "@/theme/colors";
 import { useWords } from "@/hooks/useWords";
+import { AddFolderModal } from "./AddFolderModal";
 import { store } from "expo-router/build/global-state/router-store";
 
 
@@ -68,44 +69,11 @@ export function FolderSelector({ value, onChange, open, setOpen }: Props) {
             />
 
             {/* 新規フォルダ追加用のモーダル */}
-            <Modal visible={addOpen} transparent animationType="fade" onRequestClose={() => setAddOpen(false)}>
-                <Pressable style={styles.backdrop} onPress={() => setAddOpen(false)}>
-                    <Text style={styles.modalTitle}>新しいフォルダを追加</Text>
-                    <TextInput
-                        value={newName}
-                        onChangeText={setNewName}
-                        placeholder="フォルダ名"
-                        placeholderTextColor={Colors.text}
-                        style={styles.input}
-                    />
-
-                    <View style={styles.modalRow}>
-                        <Pressable
-                            onPress={() => setAddOpen(false)}
-                            style={[styles.btn, styles.btnGhost]}>
-                            <Text style={styles.btnText}>キャンセル</Text>
-                        </Pressable>
-
-                        <Pressable
-                            onPress={() => {
-                                const name = newName.trim();
-                                if (!name) return;
-
-                                addFolder(name);
-
-                                // ⚠️ addFolder が id を返さない設計なら、
-                                // 追加後に「最後のフォルダを選択」みたいに store.folders を見て選ぶ必要がある。
-                                // ここは一旦「追加して閉じる」だけにしてる。
-
-                                setAddOpen(false);
-                                setNewName("");
-                            }}
-                            style={[styles.btn, styles.btnPrimary]}>
-                            <Text style={styles.btnText}>追加</Text>
-                        </Pressable>
-                    </View>
-                </Pressable>
-            </Modal>
+            <AddFolderModal
+                visible={addOpen}
+                onClose={() => setAddOpen(false)}
+                onAdd={(name) => addFolder(name)}
+            />
         </>
     );
 

@@ -1,0 +1,497 @@
+[
+    {
+        "word": "門外漢",
+        "note": "もんがいかん｜その分野の素人",
+        "folderId": "academic"
+    },
+    {
+        "word": "瓦解",
+        "note": "がかい｜まとまりが崩れて壊れること",
+        "folderId": "academic"
+    },
+    {
+        "word": "詭計",
+        "note": "きけい｜人をだます策略",
+        "folderId": "academic"
+    },
+    {
+        "word": "喫緊",
+        "note": "きっきん｜差し迫って重要なこと",
+        "folderId": "academic"
+    },
+    {
+        "word": "寛恕",
+        "note": "かんじょ｜寛大に許すこと",
+        "folderId": "academic"
+    },
+    {
+        "word": "憂慮",
+        "note": "ゆうりょ｜心配して思い悩むこと",
+        "folderId": "academic"
+    },
+    {
+        "word": "叡智",
+        "note": "えいち｜すぐれた知恵",
+        "folderId": "academic"
+    },
+    {
+        "word": "反駁",
+        "note": "はんばく｜相手の意見を論じて否定すること",
+        "folderId": "academic"
+    },
+    {
+        "word": "唾棄",
+        "note": "だき｜ひどく嫌って捨てること",
+        "folderId": "academic"
+    },
+    {
+        "word": "端緒",
+        "note": "たんしょ｜物事の始まり",
+        "folderId": "academic"
+    },
+    {
+        "word": "疑義",
+        "note": "ぎぎ｜疑問点",
+        "folderId": "academic"
+    },
+    {
+        "word": "具申",
+        "note": "ぐしん｜上位者に意見を述べること",
+        "folderId": "academic"
+    },
+    {
+        "word": "上申",
+        "note": "じょうしん｜上の立場に報告すること",
+        "folderId": "academic"
+    },
+    {
+        "word": "叛意",
+        "note": "はんい｜反逆の意思",
+        "folderId": "academic"
+    },
+    {
+        "word": "階梯",
+        "note": "かいてい｜段階や階級",
+        "folderId": "academic"
+    },
+    {
+        "word": "営為",
+        "note": "えいい｜営みや活動",
+        "folderId": "academic"
+    },
+    {
+        "word": "閾値",
+        "note": "いきち｜反応が起こる境界値",
+        "folderId": "academic"
+    },
+    {
+        "word": "拘泥",
+        "note": "こうでい｜必要以上にこだわること",
+        "folderId": "academic"
+    },
+    {
+        "word": "越権",
+        "note": "えっけん｜権限を超えること",
+        "folderId": "academic"
+    },
+    {
+        "word": "惨憺",
+        "note": "さんたん｜ひどく悲惨な状態",
+        "folderId": "academic"
+    },
+    {
+        "word": "傍証",
+        "note": "ぼうしょう｜間接的な証拠",
+        "folderId": "academic"
+    },
+    {
+        "word": "詮ない",
+        "note": "せんない｜仕方がないこと",
+        "folderId": "academic"
+    },
+    {
+        "word": "輪番",
+        "note": "りんばん｜順番に担当すること",
+        "folderId": "academic"
+    },
+    {
+        "word": "里程標",
+        "note": "りていひょう｜物事の節目",
+        "folderId": "academic"
+    },
+    {
+        "word": "増槽",
+        "note": "ぞうそう｜航空機の追加燃料タンク",
+        "folderId": "academic"
+    },
+    {
+        "word": "鋳型",
+        "note": "いがた｜型にはめて作る枠",
+        "folderId": "academic"
+    },
+    {
+        "word": "人垣",
+        "note": "ひとがき｜人が集まってできた囲み",
+        "folderId": "academic"
+    },
+    {
+        "word": "後刻",
+        "note": "こうこく｜あとで",
+        "folderId": "academic"
+    },
+    {
+        "word": "陥穽",
+        "note": "かんせい｜落とし穴",
+        "folderId": "academic"
+    },
+    {
+        "word": "公聴会",
+        "note": "こうちょうかい｜公的な意見聴取会",
+        "folderId": "academic"
+    },
+    {
+        "word": "叡慮",
+        "note": "えいりょ｜天皇の考え",
+        "folderId": "academic"
+    },
+    {
+        "word": "泰然",
+        "note": "たいぜん｜落ち着いて動じない様子",
+        "folderId": "academic"
+    },
+    {
+        "word": "反証",
+        "note": "はんしょう｜反対の証拠",
+        "folderId": "academic"
+    },
+    {
+        "word": "多寡",
+        "note": "たか｜数量の多少",
+        "folderId": "academic"
+    },
+    {
+        "word": "偉容",
+        "note": "いよう｜堂々とした姿",
+        "folderId": "academic"
+    },
+    {
+        "word": "邀撃",
+        "note": "ようげき｜敵を迎え撃つこと",
+        "folderId": "academic"
+    },
+    {
+        "word": "拿捕",
+        "note": "だほ｜船などを捕らえること",
+        "folderId": "academic"
+    },
+    {
+        "word": "折衝",
+        "note": "せっしょう｜交渉して解決を図ること",
+        "folderId": "academic"
+    },
+    {
+        "word": "採決",
+        "note": "さいけつ｜多数決で決めること",
+        "folderId": "academic"
+    },
+    {
+        "word": "萌芽",
+        "note": "ほうが｜物事の始まり",
+        "folderId": "academic"
+    },
+    {
+        "word": "折衷案",
+        "note": "せっちゅうあん｜中間の案",
+        "folderId": "academic"
+    },
+    {
+        "word": "営巣",
+        "note": "えいそう｜巣を作ること",
+        "folderId": "academic"
+    },
+    {
+        "word": "公然",
+        "note": "こうぜん｜隠さず表立っていること",
+        "folderId": "academic"
+    },
+    {
+        "word": "越境",
+        "note": "えっきょう｜境界を越えること",
+        "folderId": "academic"
+    },
+    {
+        "word": "収斂",
+        "note": "しゅうれん｜一つに集まること",
+        "folderId": "academic"
+    },
+    {
+        "word": "乖離",
+        "note": "かいり｜離れてしまうこと",
+        "folderId": "academic"
+    },
+    {
+        "word": "涵養",
+        "note": "かんよう｜育て養うこと",
+        "folderId": "academic"
+    },
+    {
+        "word": "帰結",
+        "note": "きけつ｜最終結果",
+        "folderId": "academic"
+    },
+    {
+        "word": "発露",
+        "note": "はつろ｜内面の表れ",
+        "folderId": "academic"
+    },
+    {
+        "word": "薄氷を踏む",
+        "note": "はくひょうをふむ｜危険な状況にあることのたとえ",
+        "folderId": "idiom"
+    },
+    {
+        "word": "堅忍不抜",
+        "note": "けんにんふばつ｜困難に耐えて志を曲げないこと",
+        "folderId": "idiom"
+    },
+    {
+        "word": "深謀遠慮",
+        "note": "しんぼうえんりょ｜深く計画して考えること",
+        "folderId": "idiom"
+    },
+    {
+        "word": "荒唐無稽",
+        "note": "こうとうむけい｜でたらめで根拠がないこと",
+        "folderId": "idiom"
+    },
+    {
+        "word": "唯々諾々",
+        "note": "いいだくだく｜言われるまま従うこと",
+        "folderId": "idiom"
+    },
+    {
+        "word": "泰然自若",
+        "note": "たいぜんじじゃく｜落ち着いて動じないこと",
+        "folderId": "idiom"
+    },
+    {
+        "word": "青天の霹靂",
+        "note": "せいてんのへきれき｜突然の出来事",
+        "folderId": "idiom"
+    },
+    {
+        "word": "絵に描いた餅",
+        "note": "えにかいたもち｜役に立たないもの",
+        "folderId": "idiom"
+    },
+    {
+        "word": "骨折り損",
+        "note": "ほねおりぞん｜苦労が報われないこと",
+        "folderId": "idiom"
+    },
+    {
+        "word": "歯に衣着せず",
+        "note": "はにきぬきせず｜遠慮なく言うこと",
+        "folderId": "idiom"
+    },
+    {
+        "word": "横紙破り",
+        "note": "よこがみやぶり｜無理に自分の意見を通すこと",
+        "folderId": "idiom"
+    },
+    {
+        "word": "言を俟たない",
+        "note": "ことをまたない｜言うまでもないこと",
+        "folderId": "idiom"
+    },
+    {
+        "word": "掛け値なし",
+        "note": "かけねなし｜誇張なしの評価",
+        "folderId": "idiom"
+    },
+    {
+        "word": "枝葉末節",
+        "note": "しようまっせつ｜重要でない細かい部分",
+        "folderId": "idiom"
+    },
+    {
+        "word": "矢も楯もたまらない",
+        "note": "やもたてもたまらない｜我慢できないこと",
+        "folderId": "idiom"
+    },
+    {
+        "word": "灰燼に帰す",
+        "note": "かいじんにきす｜完全に滅びること",
+        "folderId": "idiom"
+    },
+    {
+        "word": "理の当然",
+        "note": "りのとうぜん｜道理から当然のこと",
+        "folderId": "idiom"
+    },
+    {
+        "word": "よるべない",
+        "note": "よるべない｜頼るものがない",
+        "folderId": "idiom"
+    },
+    {
+        "word": "蠱惑的",
+        "note": "こわくてき｜妖しい魅力で人を引きつけるさま",
+        "folderId": "literature"
+    },
+    {
+        "word": "婀娜",
+        "note": "あだ｜女性の姿がしなやかで美しいさま",
+        "folderId": "literature"
+    },
+    {
+        "word": "宵の口",
+        "note": "よいのくち｜夜になったばかりの時間",
+        "folderId": "literature"
+    },
+    {
+        "word": "悠然",
+        "note": "ゆうぜん｜落ち着いてゆったりしている様子",
+        "folderId": "literature"
+    },
+    {
+        "word": "悠々と",
+        "note": "ゆうゆうと｜余裕をもって落ち着いている様子",
+        "folderId": "literature"
+    },
+    {
+        "word": "滔々と",
+        "note": "とうとうと｜よどみなく続くさま",
+        "folderId": "literature"
+    },
+    {
+        "word": "瀟洒",
+        "note": "しょうしゃ｜すっきりして上品なさま",
+        "folderId": "literature"
+    },
+    {
+        "word": "恬淡",
+        "note": "てんたん｜欲がなくあっさりしているさま",
+        "folderId": "literature"
+    },
+    {
+        "word": "玲瓏",
+        "note": "れいろう｜透き通るように美しいさま",
+        "folderId": "literature"
+    },
+    {
+        "word": "古色蒼然",
+        "note": "こしょくそうぜん｜古びて時代を感じさせるさま",
+        "folderId": "literature"
+    },
+    {
+        "word": "影法師",
+        "note": "かげぼうし｜光によってできる影",
+        "folderId": "literature"
+    },
+    {
+        "word": "泡沫",
+        "note": "ほうまつ｜はかなく消えるもの",
+        "folderId": "literature"
+    },
+    {
+        "word": "茫漠",
+        "note": "ぼうばく｜広くぼんやりしている様子",
+        "folderId": "literature"
+    },
+    {
+        "word": "憔悴",
+        "note": "しょうすい｜疲れ果てて弱ること",
+        "folderId": "literature"
+    },
+    {
+        "word": "燐光",
+        "note": "りんこう｜暗闇でぼんやり光る光",
+        "folderId": "literature"
+    },
+    {
+        "word": "溌剌",
+        "note": "はつらつ｜元気で生き生きしている様子",
+        "folderId": "literature"
+    },
+    {
+        "word": "峻険",
+        "note": "しゅんけん｜険しく厳しいこと",
+        "folderId": "literature"
+    },
+    {
+        "word": "摩天楼",
+        "note": "まてんろう｜超高層建築",
+        "folderId": "literature"
+    },
+    {
+        "word": "草創期",
+        "note": "そうそうき｜物事の始まりの時期",
+        "folderId": "literature"
+    },
+    {
+        "word": "幽玄",
+        "note": "ゆうげん｜奥深く味わい深い美",
+        "folderId": "literature"
+    },
+    {
+        "word": "清冽",
+        "note": "せいれつ｜清く澄んでいるさま",
+        "folderId": "literature"
+    },
+    {
+        "word": "寂然",
+        "note": "じゃくぜん｜静かで物寂しい様子",
+        "folderId": "literature"
+    },
+    {
+        "word": "静謐",
+        "note": "せいひつ｜とても静かな状態",
+        "folderId": "literature"
+    },
+    {
+        "word": "朦朧",
+        "note": "もうろう｜ぼんやりしてはっきりしない様子",
+        "folderId": "literature"
+    },
+    {
+        "word": "典雅",
+        "note": "てんが｜上品で優雅なこと",
+        "folderId": "literature"
+    },
+    {
+        "word": "超俗",
+        "note": "ちょうぞく｜俗世間を超えていること",
+        "folderId": "literature"
+    },
+    {
+        "word": "憐憫",
+        "note": "れんびん｜かわいそうに思うこと",
+        "folderId": "literature"
+    },
+    {
+        "word": "思慕",
+        "note": "しぼ｜慕い思うこと",
+        "folderId": "literature"
+    },
+    {
+        "word": "邂逅",
+        "note": "かいこう｜思いがけない出会い",
+        "folderId": "literature"
+    },
+    {
+        "word": "回遊",
+        "note": "かいゆう｜巡りながら移動すること",
+        "folderId": "literature"
+    },
+    {
+        "word": "頓着",
+        "note": "とんちゃく｜気にかけること",
+        "folderId": "literature"
+    },
+    {
+        "word": "戴冠",
+        "note": "たいかん｜王冠を授かること",
+        "folderId": "literature"
+    }
+]

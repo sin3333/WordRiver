@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useCallback, useState, use, useMemo } from "react";
+import React, { createContext, useContext, useEffect, useCallback, useState, useMemo } from "react";
 import { WordItem, WordsStore, Folder } from "../types/word";
 import { ALL_FOLDER_ID, DEFAULT_FOLDER_ID } from "../types/word";
 import { useWordStorage } from "../hooks/useWordStorage";
@@ -6,11 +6,56 @@ import { useWordStorage } from "../hooks/useWordStorage";
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';//UUID生成用ポリフィル
 
+type SeedWord = { word: string; note?: string; folderId: string };
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const seedWordsJson: SeedWord[] = require('../assets/data/word.json');
+
+const SEED_FOLDER_NAMES: Record<string, string> = {
+    academic: '学術語',
+    idiom: '慣用句',
+    literature: '文学語',
+};
+
+// ストレージにないseed単語を追加して返す。変更があった場合は changed=true
+function mergeSeedWords(current: WordsStore): { store: WordsStore; changed: boolean } {
+    const existingWords = new Set(current.words.map(w => w.word));
+    const existingFolderIds = new Set(current.folders.map(f => f.id));
+
+    const wordsToAdd: WordItem[] = [];
+    const foldersToAdd: Folder[] = [];
+
+    for (const sw of seedWordsJson) {
+        if (existingWords.has(sw.word)) continue;
+        wordsToAdd.push({
+            id: uuidv4(),
+            word: sw.word,
+            note: sw.note,
+            folderId: sw.folderId,
+            createdAt: Date.now(),
+        });
+        if (!existingFolderIds.has(sw.folderId) && !foldersToAdd.some(f => f.id === sw.folderId)) {
+            foldersToAdd.push({
+                id: sw.folderId,
+                name: SEED_FOLDER_NAMES[sw.folderId] ?? sw.folderId,
+                createdAt: Date.now(),
+            });
+        }
+    }
+
+    if (wordsToAdd.length === 0) return { store: current, changed: false };
+
+    return {
+        store: {
+            ...current,
+            folders: [...foldersToAdd, ...current.folders],
+            words: [...wordsToAdd, ...current.words],
+        },
+        changed: true,
+    };
+}
+
 type WordsContextValue = {
     store: WordsStore;
-    //wordList: WordItem[];
-
-
 
     addFolder: (name: string) => void;
     removeFolder: (id: string) => void;
@@ -40,26 +85,24 @@ const initialStore: WordsStore = {
 export function WordsProvider({ children }: { children: React.ReactNode }) {
     const storage = useWordStorage();
     const [store, setStore] = useState<WordsStore>(initialStore);
-    //const [wordList, setWordList] = useState<WordItem[]>([]);
-
-
 
     const reload = useCallback(async () => {
         const loaded = await storage.load();
-        if (!loaded) {
-            setStore(initialStore);
-            return;
-        }
-        //旧データ対応：folderIdが無い単語は未分類へ
-        const normalized: WordsStore = {
+
+        // ストレージが空の場合はinitialStoreをベースにする
+        const base: WordsStore = loaded ? {
             folders: loaded.folders?.length ? loaded.folders : initialStore.folders,
             words: (loaded.words ?? []).map(w => ({
                 ...w,
                 folderId: w.folderId ?? DEFAULT_FOLDER_ID,
             })),
             activeFolderId: loaded.activeFolderId ?? ALL_FOLDER_ID,
-        };
-        setStore(normalized);
+        } : initialStore;
+
+        // word.jsonにあってストレージにない単語を追加
+        const { store: merged, changed } = mergeSeedWords(base);
+        setStore(merged);
+        if (changed) await storage.save(merged);
     }, [storage]);
 
     useEffect(() => {
@@ -113,7 +156,6 @@ export function WordsProvider({ children }: { children: React.ReactNode }) {
 
     // 以下、単語管理
 
-
     const addWord = useCallback(
         async (input: { word: string; note?: string; folderId?: string }) => {
             const word = input.word.trim();
@@ -144,7 +186,6 @@ export function WordsProvider({ children }: { children: React.ReactNode }) {
     );
 
     const editWord = useCallback(async ({ id, word, note }: { id: string; word: string; note?: string }) => {
-
         const next = {
             ...store,
             words: store.words.map(w =>
@@ -152,7 +193,6 @@ export function WordsProvider({ children }: { children: React.ReactNode }) {
             ),
         };
         persist(next);
-
     }, [store, persist]);
 
     const moveWord = useCallback(
@@ -164,14 +204,12 @@ export function WordsProvider({ children }: { children: React.ReactNode }) {
             persist(next);
         }, [store, persist]);
 
-
-
     const clearAll = useCallback(async () => {
         await storage.allDelete();
         setStore(initialStore);
     }, [storage]);
 
-    //UI用データ,今後usememo化しておくと良いかも？
+    //UI用データ
 
     const activeFolder = store.activeFolderId === ALL_FOLDER_ID
         ? null
@@ -181,8 +219,6 @@ export function WordsProvider({ children }: { children: React.ReactNode }) {
         if (!store.activeFolderId || store.activeFolderId === ALL_FOLDER_ID) return store.words;
         return store.words.filter(w => w.folderId === store.activeFolderId);
     }, [store.words, store.activeFolderId]);
-
-    //return
 
     const value = useMemo(() => ({
         store,
@@ -214,16 +250,9 @@ export function WordsProvider({ children }: { children: React.ReactNode }) {
         activeFolder,
     ]);
 
-
     return (
-        <WordsContext.Provider
-            value={value}
-        >
+        <WordsContext.Provider value={value}>
             {children}
         </WordsContext.Provider>
     )
-
-
-
-
 }

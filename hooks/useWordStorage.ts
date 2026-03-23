@@ -1,58 +1,40 @@
-import { useState, React } from "react";
+import { useCallback, useMemo } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { WordItem } from "../types/word";
+import { WordsStore } from "../types/word";
 import { STORAGE_KEY } from "../storage/WordStorage";
 
 export function useWordStorage() {
 
-    const load = async (): Promise<WordItem[]> => {
+    const load = useCallback(async (): Promise<WordsStore | null> => {
         try {
             const value = await AsyncStorage.getItem(STORAGE_KEY);
             if (value !== null) {
-                return JSON.parse(value) as WordItem[];
+                return JSON.parse(value) as WordsStore;
             }
-            return [];
+            return null;
         } catch (e) {
             console.log('読み込みエラー:', e);
-            return [];
+            return null;
         }
-    };
+    }, []);
 
-    const save = async (items: WordItem[]): Promise<void> => {
+    const save = useCallback(async (store: WordsStore): Promise<void> => {
         try {
-            await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+            await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(store));
         } catch (e) {
             console.log('保存エラー:', e);
         }
-    };
+    }, []);
 
-    const remove = async (id: string): Promise<void> => {
-        const current = await load();
-        const updated = current.filter(item => item.id !== id);
-
-        console.log("DELETE id:", id); // デバッグ用
-        console.log("LEN:", current.length, "->", updated.length); // デバッグ用
-        await save(updated);
-    };
-
-    const allDelete = async (): Promise<void> => {
+    const allDelete = useCallback(async (): Promise<void> => {
         try {
             await AsyncStorage.removeItem(STORAGE_KEY);
         } catch (e) {
             console.log('削除エラー:', e);
         }
+        console.log('Done.');
+    }, []);
 
-        console.log('Done.')
-    };
-
-
-
-    return useMemo(() => ({
-        load,
-        save,
-        remove,
-        allDelete
-    }), [load, save, remove, allDelete]);
-};
-
+    return useMemo(() => ({ load, save, allDelete }), [load, save, allDelete]);
+}
